@@ -501,7 +501,7 @@ h6,
 
     color: #32325d;
 }
-
+ul.pagination {justify-content: center !important;}
 h1,
 .h1
 {

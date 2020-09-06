@@ -14,73 +14,42 @@ class CategoryController extends Controller
         return view('setup.category.index', ['datas' => $datas]);
     }
 
-    // public function create()
-    // {
-    //     return view('admin.setup.blog.create');
-    // }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'logo' => 'required|mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048',
-    //         'description' => 'required'
-    //         ]);
-    //     $blog = new Blog;
-    //     $blog->description = $request->input('description');
-    //     $blog->title = $request->input('title');
-    //     if($request->hasFile('logo')) {
-    //         $logo = $request->file('logo');
-    //         $fileName = time().'.'.$request->file('logo')->extension();  
-    //         $request->file('logo')->move(public_path('blog'), $fileName);
+    public function store(Request $request)
+    {
+        $category = new Category;
+        $category->description = $request->input('description');
+        $category->name = $request->input('name');
+        $category->save();
 
-    //         $blog->logo = $fileName;
-    //         $blog->save();
-
-    //         return back()
-    //         ->with('success','Blog Create Successfully.')
-    //         ->with('file', $fileName);
-    //     }
-    // }
+        echo 'success';  
+    }
     
-    // public function edit(Blog $blog)
-    // {
-    //     return view('admin.setup.blog.edit', ['blog' => $blog]);
-    // }
+    public function edit($id)
+    {
+        if(request()->ajax())
+        {
+            $data = Category::findOrFail($id);
+            return response()->json(['result' => $data]);
+        }
+    }
 
 
-    // public function update(Request $request, Blog $blog)
-    // {
-    //     $request->validate([
-    //         'logo' => 'mimes:jpeg,png,jpg,txt,xlx,xls,pdf|max:2048',
-    //         'description' => 'required'
-    //         ]);
-    //     $description = $request->input('description');
-    //     $title = $request->input('title');
+    public function update(Request $request, Category $category)
+    {
 
-    //     if($request->file('logo') != ''){        
-    //         if($request->hasFile('logo')) {
-    //             $file_path = public_path().'/blog/'.$request->input('oldlogo');;
-    //             unlink($file_path);
-    //             $logo = $request->file('logo');
-    //             $filename = time().'.'.$request->file('logo')->extension();  
-    //             $request->file('logo')->move(public_path('blog'), $filename);
-    //         }
-    //    }else{
-    //     $filename = $request->input('oldlogo');
-    //    }
+        $description = $request->input('description');
+        $name = $request->input('name');
 
-    //    $blog->update(['logo' => $filename, 'title' => $title, 'description' => $description]);
-    //    return redirect('admin/blog');
-    //     // return redirect('admin/blog')->back()
-    //         // ->with('success','Blog Update Successfully.')
-    //         // ->with('file', $filename);
+        $category->update(['name' => $name, 'description' => $description]);
+        echo 'success'; 
 
-    // }
+    }
 
-    // public function destroy(Blog $blog)
-    // {
-    //     $blog->delete();
-    //     return back()
-    //         ->with('success','Blog Delete Successfully.');
-    // }
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return back()
+            ->with('success','Category Delete Successfully.');
+    }
 }
