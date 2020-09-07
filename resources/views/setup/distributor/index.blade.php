@@ -30,7 +30,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">company List</h3>
+						<h3 class="mb-0">Distributor List</h3>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Create New</button>
@@ -48,11 +48,12 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Name</th>
-							<th scope="col">Email</th>
-							<th scope="col">Contact</th>
-							<th scope="col">Description</th>
-							<th scope="col">Address</th>
+							<th scope="col">Distributor Name</th>
+							<th scope="col">Distributor Email</th>
+							<th scope="col">Distributor Contact</th>
+							<th scope="col">Distributor Description</th>
+							<th scope="col">Distributor Int Balance</th>
+							<th scope="col">Distributor Address</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -64,10 +65,11 @@
 							<td style="">{{$data->email}}</td>
 							<td style="">{{$data->contact}}</td>
 							<td style="">{{$data->description}}</td>
+							<td style="">{{$data->balance}}</td>
 							<td style="">{{$data->address}}</td>
 							<td style="display: -webkit-inline-box;">
 								<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target=".bd-update-lg" onclick="findEditData({{$data->id}})">Edit</button>
-								<form action="{{ route('company.destroy',$data->id) }}" method="POST">
+								<form action="{{ route('distributor.destroy',$data->id) }}" method="POST">
 									@csrf
                     				@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" id="deletebtn"
@@ -95,7 +97,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-				<h5 class="modal-title">Create A New company</h5>
+				<h5 class="modal-title">Create A New distributor</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -104,39 +106,45 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label>	Company Name </label>
-							<input type="text" value="{{ old('name') }}" name="name" id="company_name" class="form-control" placeholder="company Name" required>
+							<label>	Distributor Name </label>
+							<input type="text" value="{{ old('name') }}" name="name" id="distributor_name" class="form-control" placeholder="Distributor Name" required>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label>	Company Email </label>
-							<input type="email" value="{{ old('name') }}" name="name" id="company_email" class="form-control" placeholder="company Name" required>
+							<label>	Distributor Email </label>
+							<input type="email" value="{{ old('name') }}" name="name" id="distributor_email" class="form-control" placeholder="Distributor Name" required>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label for="description">Company Address</label>
-							<textarea class="form-control"  name="description" id="company_address"  placeholder="company address" rows="2">{{ old('description') }}</textarea>
+							<label for="description">Distributor Address</label>
+							<textarea class="form-control"  name="description" id="distributor_address"  placeholder="Distributor address" rows="2">{{ old('description') }}</textarea>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label for="description">Company Description</label>
-							<textarea class="form-control"  name="description" id="company_description"  placeholder="company description" rows="2">{{ old('description') }}</textarea>
+							<label for="description">Distributor Description</label>
+							<textarea class="form-control"  name="description" id="distributor_description"  placeholder="Distributor description" rows="2">{{ old('description') }}</textarea>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label>	Company Contact </label>
-							<input type="text" value="{{ old('name') }}" name="name" id="company_contact" class="form-control" placeholder="company Contact" required>
+							<label>	Distributor Contact </label>
+							<input type="text" value="{{ old('name') }}" name="name" id="distributor_contact" class="form-control" placeholder="Distributor Contact" required>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12 col-sm-12">
+						<div class="form-group">
+							<label>	Int Balence </label>
+							<input type="text" value="{{ old('name') }}" name="balence" id="distributor_balence" class="form-control" placeholder="Distributor balence" required>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer"  style="border-top: 2px solid rgb(232 227 227);">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="companyStore()">Create</button>
+				<button type="button" class="btn btn-primary" onclick="distributorStore()">Create</button>
 				<button type="button" class="btn btn-danger" onclick="resetCreateData()"><i class="fas fa-trash-restore"></i> Reset</button>
 			</div>
 		</div>
@@ -151,7 +159,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-				<h5 class="modal-title">Edit Company</h5>
+				<h5 class="modal-title">Edit distributor</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -160,40 +168,46 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label>	Company Name </label>
-							<input type="text" value="{{ old('name') }}" name="name" id="company_name_edit" class="form-control" placeholder="company Name" required>
+							<label>	Distributor Name </label>
+							<input type="text" value="{{ old('name') }}" name="name" id="distributor_name_edit" class="form-control" placeholder="Distributor Name" required>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label>	Company Email </label>
-							<input type="email" value="{{ old('name') }}" name="name" id="company_email_edit" class="form-control" placeholder="company Name" required>
+							<label>	Distributor Email </label>
+							<input type="email" value="{{ old('name') }}" name="name" id="distributor_email_edit" class="form-control" placeholder="Distributor Name" required>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label for="description">Company Address</label>
-							<textarea class="form-control"  name="Address" id="company_address_edit"  placeholder="company Address" rows="2">{{ old('description') }}</textarea>
+							<label for="description">Distributor Address</label>
+							<textarea class="form-control"  name="Address" id="distributor_address_edit"  placeholder="Distributor Address" rows="2">{{ old('description') }}</textarea>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label for="description">Company Description</label>
-							<textarea class="form-control"  name="description" id="company_description_edit"  placeholder="company description" rows="2">{{ old('description') }}</textarea>
+							<label for="description">Distributor Description</label>
+							<textarea class="form-control"  name="description" id="distributor_description_edit"  placeholder="Distributor description" rows="2">{{ old('description') }}</textarea>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-12 col-sm-12">
 						<div class="form-group">
-							<label>	Company Contact </label>
-							<input type="text" value="{{ old('name') }}" name="name" id="company_contact_edit" class="form-control" placeholder="company Contact" required>
+							<label>	Distributor Contact </label>
+							<input type="text" value="{{ old('name') }}" name="name" id="distributor_contact_edit" class="form-control" placeholder="Distributor Contact" required>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12 col-sm-12">
+						<div class="form-group">
+							<label>	Int Balence </label>
+							<input type="text" value="{{ old('name') }}" name="balence" id="distributor_balence_edit" class="form-control" placeholder="Distributor balence" required>
 						</div>
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="company_edit_id" id="company_edit_id">
+			<input type="hidden" name="distributor_edit_id" id="distributor_edit_id">
 			<div class="modal-footer" style="border-top: 2px solid rgb(232 227 227);">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="companyUpdate()">Update</button>
+				<button type="button" class="btn btn-primary" onclick="distributorUpdate()">Update</button>
 				<button type="button" class="btn btn-danger" onclick="resetUpdateData()"><i class="fas fa-trash-restore"></i> Reset</button>
 			</div>
 		</div>
@@ -211,17 +225,18 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script>
-function companyStore() {
-    var name = $('#company_name').val();
-	var description = $('#company_description').val();
-	var email = $('#company_email').val();
-	var contact = $('#company_contact').val();
-	var address = $('#company_address').val();
-	// if(name == '' || description == '' || email == '' || contact == '' || address == ''){
+function distributorStore() {
+    var name = $('#distributor_name').val();
+	var description = $('#distributor_description').val();
+	var email = $('#distributor_email').val();
+	var contact = $('#distributor_contact').val();
+	var address = $('#distributor_address').val();
+	var balence = $('#distributor_balence').val();
+	// if(name == '' || description == '' || email == '' || contact == '' || address == '' || balence == ''){
 	// 	Swal.fire({
 	// 		icon: 'error',
 	// 		title: 'An Error',
-	// 		text: 'company name/description/address/contact/email not required !',
+	// 		text: 'distributor name/description/address/contact/email not required !',
 	// 		showConfirmButton: false,
 	// 		timer: 1500
 	// 	})
@@ -233,29 +248,31 @@ function companyStore() {
 		});
 		$.ajax({
 			type:"POST",
-			url : "{{ route('company.store') }}",
+			url : "{{ route('distributor.store') }}",
 			data : {
 				name: name,
 				description: description,
 				email: email,
 				contact: contact,
 				address: address,
+				balance: balence
 			},
 			success : function(response) {
 				if(response == 'success'){
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'company Create successfully!',
+						title: 'distributor Create successfully!',
 						showConfirmButton: false,
 						timer: 1500
 					})
 				$('.bd-example-modal-lg').modal('hide');
-				$('#company_name').val('');
-				$('#company_description').val('');
-				$('#company_email').val('');
-				$('#company_contact').val('');
-				$('#company_address').val('');
+				$('#distributor_name').val('');
+				$('#distributor_description').val('');
+				$('#distributor_email').val('');
+				$('#distributor_contact').val('');
+				$('#distributor_address').val('');
+				$('#distributor_balence').val('');
 				}else{
 					Swal.fire({
 						position: 'top-end',
@@ -271,11 +288,12 @@ function companyStore() {
 };
 
 function resetCreateData() {
-	$('#company_name').val('');
-	$('#company_description').val('');
-	$('#company_email').val('');
-	$('#company_contact').val('');
-	$('#company_address').val('');
+	$('#distributor_name').val('');
+	$('#distributor_description').val('');
+	$('#distributor_email').val('');
+	$('#distributor_contact').val('');
+	$('#distributor_address').val('');
+	$('#distributor_balence').val('');
 }
 
 function findEditData(id)
@@ -288,33 +306,35 @@ function findEditData(id)
 		});
 		$.ajax({
 			type:"GET",
-			url :"/company/"+id+"/edit",
+			url :"/distributor/"+id+"/edit",
 			data : {},
 			success : function(response) {
 				console.log(response);
-				$('#company_name_edit').val(response.result.name);
-				$('#company_description_edit').val(response.result.description);
-				$('#company_address_edit').val(response.result.address);
-				$('#company_contact_edit').val(response.result.contact);
-				$('#company_email_edit').val(response.result.email);
-				$('#company_edit_id').val(response.result.id);
+				$('#distributor_name_edit').val(response.result.name);
+				$('#distributor_description_edit').val(response.result.description);
+				$('#distributor_address_edit').val(response.result.address);
+				$('#distributor_contact_edit').val(response.result.contact);
+				$('#distributor_email_edit').val(response.result.email);
+				$('#distributor_edit_id').val(response.result.id);
+				$('#distributor_balence_edit').val(response.result.balence);
 			}
 		});
 }
 
 
-function companyUpdate() {
-	var name = $('#company_name_edit').val();
-	var description = $('#company_description_edit').val();
-	var address = $('#company_address_edit').val();
-	var email = $('#company_email_edit').val();
-	var contact = $('#company_contact_edit').val();
-	var id = $('#company_edit_id').val();
-	// if(name == '' || description == ''){
+function distributorUpdate() {
+	var name = $('#distributor_name_edit').val();
+	var description = $('#distributor_description_edit').val();
+	var address = $('#distributor_address_edit').val();
+	var email = $('#distributor_email_edit').val();
+	var contact = $('#distributor_contact_edit').val();
+	var id = $('#distributor_edit_id').val();
+	var balence = $('#distributor_balence_edit').val();
+	// if(name == '' || description == '' || address == '' || email == '' || contact == '' || balence == ''){
 	// 	Swal.fire({
 	// 		icon: 'error',
 	// 		title: 'An Error',
-	// 		text: 'company name/description not required !',
+	// 		text: 'distributor name/description not required !',
 	// 		showConfirmButton: false,
 	// 		timer: 1500
 	// 	})
@@ -326,13 +346,14 @@ function companyUpdate() {
 		});
 		$.ajax({
 			type: "POST",
-			url :"/company/"+id,
+			url :"/distributor/"+id,
 			data : {
 				name: name,
 				description: description,
 				email: email,
 				contact: contact,
 				address: address,
+				balance: balence,
 				_method: 'PUT'
 			},
 			success : function(response) {
@@ -340,16 +361,17 @@ function companyUpdate() {
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'company Update successfully!',
+						title: 'distributor Update successfully!',
 						showConfirmButton: false,
 						timer: 1500
 					})
 				$('.bd-update-lg').modal('hide');
-				$('#company_name_edit').val('');
-				$('#company_description_edit').val('');
-				$('#company_address_edit').val('');
-				$('#company_email_edit').val('');
-				$('#company_contact_edit').val('');
+				$('#distributor_name_edit').val('');
+				$('#distributor_description_edit').val('');
+				$('#distributor_address_edit').val('');
+				$('#distributor_email_edit').val('');
+				$('#distributor_contact_edit').val('');
+				$('#distributor_balence_edit').val('');
 
 				}else{
 					Swal.fire({
@@ -368,10 +390,11 @@ function companyUpdate() {
 
 function resetUpdateData()
 {
-	$('#company_name_edit').val('');
-	$('#company_description_edit').val('');
-	$('#company_address_edit').val('');
-	$('#company_email_edit').val('');
-	$('#company_contact_edit').val('');
+	$('#distributor_name_edit').val('');
+	$('#distributor_description_edit').val('');
+	$('#distributor_address_edit').val('');
+	$('#distributor_email_edit').val('');
+	$('#distributor_contact_edit').val('');
+	$('#distributor_balence_edit').val('');
 }
 </script>

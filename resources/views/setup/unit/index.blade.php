@@ -30,7 +30,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">Category List</h3>
+						<h3 class="mb-0">Unit List</h3>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Create New</button>
@@ -58,10 +58,9 @@
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
 							<td style="">{{$data->name}}</td>
-							<td style="">{{$data->description}}</td>
 							<td style="display: -webkit-inline-box;">
 								<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target=".bd-update-lg" onclick="findEditData({{$data->id}})">Edit</button>
-								<form action="{{ route('category.destroy',$data->id) }}" method="POST">
+								<form action="{{ route('unit.destroy',$data->id) }}" method="POST">
 									@csrf
                     				@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" id="deletebtn"
@@ -89,7 +88,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Create A New Category</h5>
+				<h5 class="modal-title">Create A New Unit</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -97,20 +96,14 @@
 			<div class="modal-body">
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="form-group">
-						<label>	Category Name </label>
-						<input type="text" value="{{ old('name') }}" name="name" id="category_name" class="form-control" placeholder="Category Name" required>
-					</div>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="form-group">
-						<label for="description">Category Description</label>
-						<textarea class="form-control"  name="description" id="category_description"  placeholder="Category description" rows="2">{{ old('description') }}</textarea>
+						<label>	Unit Name </label>
+						<input type="text" value="{{ old('name') }}" name="name" id="name" class="form-control" placeholder="Unit Name" required>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="categoryStore()">Create</button>
+				<button type="button" class="btn btn-primary" onclick="UnitStore()">Create</button>
 				<button type="button" class="btn btn-danger" onclick="resetCreateData()"><i class="fas fa-trash-restore"></i> Reset</button>
 			</div>
 		</div>
@@ -125,7 +118,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Edit Category</h5>
+				<h5 class="modal-title">Edit Unit</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -133,21 +126,15 @@
 			<div class="modal-body">
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="form-group">
-						<label>	Category Name </label>
-						<input type="text" value="{{ old('name') }}" name="name" id="category_name_edit" class="form-control" placeholder="Category Name" required>
-					</div>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="form-group">
-						<label for="description">Category Description</label>
-						<textarea class="form-control"  name="description" id="category_description_edit"  placeholder="Category description" rows="2">{{ old('description') }}</textarea>
+						<label>	Unit Name </label>
+						<input type="text" value="{{ old('name') }}" name="name" id="name_edit" class="form-control" placeholder="Unit Name" required>
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="category_edit_id" id="category_edit_id">
+			<input type="hidden" name="edit_id" id="edit_id">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="categoryUpdate()">Update</button>
+				<button type="button" class="btn btn-primary" onclick="UnitUpdate()">Update</button>
 				<button type="button" class="btn btn-danger" onclick="resetUpdateData()"><i class="fas fa-trash-restore"></i> Reset</button>
 			</div>
 		</div>
@@ -165,14 +152,13 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <script>
-function categoryStore() {
-    var name = $('#category_name').val();
-	var description = $('#category_description').val();
+function UnitStore() {
+    var name = $('#name').val();
 	// if(name == '' || description == ''){
 	// 	Swal.fire({
 	// 		icon: 'error',
 	// 		title: 'An Error',
-	// 		text: 'Category name/description not required !',
+	// 		text: 'Unit name/description not required !',
 	// 		showConfirmButton: false,
 	// 		timer: 1500
 	// 	})
@@ -184,10 +170,9 @@ function categoryStore() {
 		});
 		$.ajax({
 			type:"POST",
-			url : "{{ route('category.store') }}",
+			url : "{{ route('unit.store') }}",
 			data : {
 				name: name,
-				description: description
 			},
 			success : function(response) {
 				console.log(response);
@@ -195,13 +180,12 @@ function categoryStore() {
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'Category Create successfully!',
+						title: 'Unit Create successfully!',
 						showConfirmButton: false,
 						timer: 1500
 					})
 				$('.bd-example-modal-lg').modal('hide');
-				$('#category_name').val('');
-				$('#category_description').val('');
+				$('#name').val('');
 
 				}else{
 					Swal.fire({
@@ -218,8 +202,7 @@ function categoryStore() {
 };
 
 function resetCreateData() {
-	$('#category_name').val('');
-	$('#category_description').val('');
+	$('#name').val('');
 }
 
 function findEditData(id)
@@ -232,26 +215,24 @@ function findEditData(id)
 		});
 		$.ajax({
 			type:"GET",
-			url :"/category/"+id+"/edit",
+			url :"/unit/"+id+"/edit",
 			data : {},
 			success : function(response) {
-				$('#category_name_edit').val(response.result.name);
-				$('#category_description_edit').val(response.result.description);
-				$('#category_edit_id').val(response.result.id);
+				$('#name_edit').val(response.result.name);
+				$('#edit_id').val(response.result.id);
 			}
 		});
 }
 
 
-function categoryUpdate() {
-	var name = $('#category_name_edit').val();
-	var description = $('#category_description_edit').val();
-	var id = $('#category_edit_id').val();
+function UnitUpdate() {
+	var name = $('#name_edit').val();
+	var id = $('#edit_id').val();
 	// if(name == '' || description == ''){
 	// 	Swal.fire({
 	// 		icon: 'error',
 	// 		title: 'An Error',
-	// 		text: 'Category name/description not required !',
+	// 		text: 'Unit name/description not required !',
 	// 		showConfirmButton: false,
 	// 		timer: 1500
 	// 	})
@@ -263,10 +244,9 @@ function categoryUpdate() {
 		});
 		$.ajax({
 			type: "POST",
-			url :"/category/"+id,
+			url :"/unit/"+id,
 			data : {
 				name: name,
-				description: description,
 				_method: 'PUT'
 			},
 			success : function(response) {
@@ -274,13 +254,12 @@ function categoryUpdate() {
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'Category Update successfully!',
+						title: 'Unit Update successfully!',
 						showConfirmButton: false,
 						timer: 1500
 					})
 				$('.bd-update-lg').modal('hide');
-				$('#category_name_edit').val('');
-				$('#category_description_edit').val('');
+				$('#name_edit').val('');
 
 				}else{
 					Swal.fire({
@@ -299,7 +278,6 @@ function categoryUpdate() {
 
 function resetUpdateData()
 {
-	$('#category_name_edit').val('');
-	$('#category_description_edit').val('');
+	$('#name_edit').val('');
 }
 </script>

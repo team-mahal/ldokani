@@ -101,6 +101,16 @@
                                     Company Setup
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('distributor.index') }}">
+                                    Distributor Setup
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('unit.index') }}">
+                                    Unit Setup
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

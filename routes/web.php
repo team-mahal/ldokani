@@ -32,5 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('category', 'Admin\CategoryController');
 	Route::resource('company', 'Admin\CompanyController');
+	Route::resource('distributor', 'Admin\DistributorController');
+	Route::resource('unit', 'Admin\UnitController');
 });
 
