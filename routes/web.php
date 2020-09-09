@@ -34,5 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('company', 'Admin\CompanyController');
 	Route::resource('distributor', 'Admin\DistributorController');
 	Route::resource('unit', 'Admin\UnitController');
+	Route::resource('product', 'Admin\ProductController');
 });
 

@@ -18,13 +18,13 @@ class CreateProductsTable extends Migration
             $table->integer('category_id');
             $table->integer('company_id');
             $table->integer('unit_id');
-            $table->integer('product_size');
-            $table->integer('alarm_level');
-            $table->enum('warranty', ['general', 'warranty']);
+            $table->integer('product_size')->nullable();
+            $table->integer('alarm_level')->nullable();
+            $table->enum('warranty', ['general', 'warranty'])->nullable();
             $table->string('product_name');
-            $table->string('product_model');
+            $table->string('product_model')->nullable();
             $table->integer('product_barcode');
-            $table->string('product_image');
+            $table->string('product_image')->nullable();
             $table->timestamps();
         });
     }

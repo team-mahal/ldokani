@@ -316,7 +316,7 @@ function findEditData(id)
 				$('#distributor_contact_edit').val(response.result.contact);
 				$('#distributor_email_edit').val(response.result.email);
 				$('#distributor_edit_id').val(response.result.id);
-				$('#distributor_balence_edit').val(response.result.balence);
+				$('#distributor_balence_edit').val(response.result.balance);
 			}
 		});
 }
