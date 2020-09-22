@@ -18,17 +18,17 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $company = new Company;
-        $company->description = $request->input('description');
-        $company->name        = $request->input('name');
-        $company->address     = $request->input('address');
-        $company->email       = $request->input('email');
-        $company->contact     = $request->input('contact');
+        $company->description = $request->description;
+        $company->name        = $request->name;
+        $company->address     = $request->address;
+        $company->email       = $request->email;
+        $company->contact     = $request->contact;
         $company->save();
 
-        if($request->input('isproduct')){
-            echo $company->id;
+        if($request->isproduct == 1){
+            return response()->json($company->id);
         }else{
-            echo 'success'; 
+            return response()->json("success");
         }
     }
     
@@ -44,16 +44,14 @@ class CompanyController extends Controller
 
     public function update(Request $request, Company $company)
     {
-
-        $description   = $request->input('description');
-        $name          = $request->input('name');
-        $address       = $request->input('address');
-        $email         = $request->input('email');
-        $contact       = $request->input('contact');
+        $description   = $request->description;
+        $name          = $request->name;
+        $address       = $request->address;
+        $email         = $request->email;
+        $contact       = $request->contact;
 
         $company->update(['name' => $name, 'description' => $description, 'address' => $address, 'email' => $email,'contact' => $contact]);
-        echo 'success'; 
-
+        return response()->json("success");
     }
 
     public function destroy(company $company)

@@ -85,7 +85,7 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<form id="category_store">
+		<form id="store" action="/category">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header">
@@ -123,7 +123,7 @@
 <div class="modal fade bd-update-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<form id="category_update">
+		<form id="update" action="">
 			{{ csrf_field() }}
 			@method('PUT')
 			<div class="modal-content">
@@ -147,7 +147,6 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" name="id" id="id">
 				<div class="modal-footer">
 					<input type="submit" class="btn btn-primary" value="Update">
 					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>

@@ -18,13 +18,12 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $unit = new Unit;
-        $unit->name = $request->input('name');
+        $unit->name = $request->name;
         $unit->save();
-
-        if($request->input('isproduct')){
-            echo $unit->id;
+        if($request->isproduct == 1){
+            return response()->json($company->id);
         }else{
-            echo 'success'; 
+            return response()->json("success");
         }
     }
     
@@ -40,11 +39,9 @@ class UnitController extends Controller
 
     public function update(Request $request, Unit $unit)
     {
-        $name = $request->input('name');
-
+        $name = $request->name;
         $unit->update(['name' => $name]);
-        echo 'success'; 
-
+        return response()->json("success");
     }
 
     public function destroy(Unit $unit)
