@@ -21,7 +21,11 @@ class UnitController extends Controller
         $unit->name = $request->input('name');
         $unit->save();
 
-        echo 'success';  
+        if($request->input('isproduct')){
+            echo $unit->id;
+        }else{
+            echo 'success'; 
+        }
     }
     
     public function edit($id)

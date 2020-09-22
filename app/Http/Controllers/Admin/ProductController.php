@@ -29,7 +29,7 @@ class ProductController extends Controller
         ]);
         
 
-        if($validation->passes())
+        if($validation->passes() && $request->file('Product_image') != '')
         {
             $image = $request->file('Product_image');
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -48,7 +48,7 @@ class ProductController extends Controller
         $product->product_barcode   = $request->input('Product_barcode');
         $product->product_model     = $request->input('Product_model');
         $product->product_size      = $request->input('Product_size');
-        $product->alarm_level       = $request->input('Product_level');
+        $product->alarm_level       = $request->input('Alarm_level');
         $product->warranty          = $request->input('Genral_warranty');
         $product->product_image     = $new_name;
         $product->save();
@@ -66,17 +66,39 @@ class ProductController extends Controller
     }
 
 
-    public function update(Request $request, Product $Product)
+    public function update(Request $request)
     {
+        dd($request);
+        // echo $request->Product_category_name_edit;
 
-        $description   = $request->input('description');
-        $name          = $request->input('name');
-        $address       = $request->input('address');
-        $email         = $request->input('email');
-        $contact       = $request->input('contact');
+        // $validation = Validator::make($request->all(), [
+        //     'Product_image_edit' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        // ]);
+        
 
-        $Product->update(['name' => $name, 'description' => $description, 'address' => $address, 'email' => $email,'contact' => $contact]);
-        echo 'success'; 
+        // if($validation->passes() && $request->file('Product_image_edit') != '')
+        // {
+        //     $image = $request->file('Product_image_edit');
+        //     $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('product_img_edit'), $new_name);
+        // }
+        // else
+        // {
+        //     $new_name = $product->product_image;
+        // }
+
+        // $product_name      = $request->input('Product_name_edit');
+        // $category_id       = $request->input('Product_category_name_edit');
+        // $company_id        = $request->input('Product_company_name_edit');
+        // $unit_id           = $request->input('Product_unit_name_edit');
+        // $product_barcode   = $request->input('Product_barcode_edit');
+        // $product_model     = $request->input('Product_model_edit');
+        // $product_size      = $request->input('Product_size_edit');
+        // $alarm_level       = $request->input('Alarm_level_edit');
+        // $warranty          = $request->input('Genral_warranty_edit');
+
+        // $product->update(['product_name' => $product_name, 'category_id' => $category_id, 'company_id' => $company_id, 'unit_id' => $unit_id, 'product_barcode' => $product_barcode, 'product_model' => $product_model, 'product_size' => $product_size, 'alarm_level' => $alarm_level, 'warranty' => $warranty, 'product_image' => $new_name]);
+        // echo 'success'; 
 
     }
 
@@ -85,5 +107,16 @@ class ProductController extends Controller
         $Product->delete();
         return back()
             ->with('success','Product Delete Successfully.');
+    }
+
+    public function last_product()
+    {
+        $product = Product::latest()->first();
+        if(empty($product))
+        {
+            echo 1;
+        }else{
+            echo $product->id + 1;
+        }
     }
 }

@@ -17,6 +17,12 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        <script>
+
+            window.MY_PROJECT = {
+                category_store: "{{ route('category.store') }}"
+            };
+        </script>
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -31,16 +37,24 @@
             @yield('content')
         </div>
 
-        @guest()
-            @include('layouts.footers.guest')
-        @endguest
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <!-- Argon JS -->
+        <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
+        <!-- Argon JS -->
+        <script  type="text/javascript" src="{{ URL::asset('argon') }}/js/crud.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         
         @stack('js')
         
-        <!-- Argon JS -->
-        <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+        
     </body>
 </html>

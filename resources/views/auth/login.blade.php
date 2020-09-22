@@ -22,13 +22,16 @@
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>
+                            {{-- <small>
                                 <a href="{{ route('register') }}">{{ __('Create new account') }}</a> {{ __('OR Sign in with these credentials:') }}
                             </small>
                             <br>
                             <small>
                                 {{ __('Username') }} <strong>admin@argon.com</strong>
                                 {{ __('Password') }} <strong>secret</strong>
+                            </small> --}}
+                            <small>
+                                Sign in with these credentials
                             </small>
                         </div>
                         <form role="form" method="POST" action="{{ route('login') }}">
@@ -72,7 +75,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="row mt-3">
+                {{-- <div class="row mt-3">
                     <div class="col-6">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-light">
@@ -85,7 +88,7 @@
                             <small>{{ __('Create new account') }}</small>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
