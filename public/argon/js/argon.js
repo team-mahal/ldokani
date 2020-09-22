@@ -114,7 +114,7 @@ var FormControl = (function() {
 
 	function init($this) {
 		$this.on('focus blur', function(e) {
-        $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+        $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus' ||  this.value ? this.value.length : 0 > 0));
     }).trigger('blur');
 	}
 

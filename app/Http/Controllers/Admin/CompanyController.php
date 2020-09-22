@@ -25,7 +25,11 @@ class CompanyController extends Controller
         $company->contact     = $request->input('contact');
         $company->save();
 
-        echo 'success';  
+        if($request->input('isproduct')){
+            echo $company->id;
+        }else{
+            echo 'success'; 
+        }
     }
     
     public function edit($id)

@@ -18,11 +18,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = new Category;
-        $category->description = $request->input('description');
-        $category->name = $request->input('name');
+        $category->description = $request->description;
+        $category->name = $request->name;
         $category->save();
-
-        echo 'success';  
+        return response()->json("success");
     }
     
     public function edit($id)
@@ -37,13 +36,10 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-
-        $description = $request->input('description');
-        $name = $request->input('name');
-
+        $description = $request->description;
+        $name = $request->name;
         $category->update(['name' => $name, 'description' => $description]);
-        echo 'success'; 
-
+        return response()->json("success"); 
     }
 
     public function destroy(Category $category)

@@ -217,15 +217,6 @@ function companyStore() {
 	var email = $('#company_email').val();
 	var contact = $('#company_contact').val();
 	var address = $('#company_address').val();
-	// if(name == '' || description == '' || email == '' || contact == '' || address == ''){
-	// 	Swal.fire({
-	// 		icon: 'error',
-	// 		title: 'An Error',
-	// 		text: 'company name/description/address/contact/email not required !',
-	// 		showConfirmButton: false,
-	// 		timer: 1500
-	// 	})
-	// }else{
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -267,7 +258,6 @@ function companyStore() {
 				}
 			}
 		});
-	// }
 };
 
 function resetCreateData() {
