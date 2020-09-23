@@ -21,7 +21,7 @@ class UnitController extends Controller
         $unit->name = $request->name;
         $unit->save();
         if($request->isproduct == 1){
-            return response()->json($company->id);
+            return response()->json($unit->id);
         }else{
             return response()->json("success");
         }

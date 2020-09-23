@@ -112,6 +112,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('customer.index') }}">
+                                    Customer Setup
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('unit.index') }}">
                                     Unit Setup
                                 </a>

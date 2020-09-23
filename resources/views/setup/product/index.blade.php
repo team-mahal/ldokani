@@ -61,12 +61,12 @@
 						<tr>
 							<td scope="row">{{ $key+1 }}</td>
 							<td style="">
-								@if(!empty($data->product_image))
-								<img src="product_img/{{$data->product_image}}" alt=""
-									style="height: 50px; width: 50px;">
+								@if(!empty($data->image))
+								<img src="product_img/{{$data->image}}" alt=""
+									style="height: 50px; width: 50px; border-radius: 50%;">
 								@else
 								<img src="product_img/demo.png" alt="" style="height: 50px; width: 50px;">
-								@endif)
+								@endif
 							</td>
 							<td style="">{{$data->name}}</td>
 							<td style="">@if(!is_null($data->category)) {{$data->category->name}} @endif</td>
@@ -115,7 +115,7 @@
 							<div class="form-group">
 								<label for="category_name"> Category Name * </label>
 								<div class="form-control p-0">
-									<select type="text" name="category_name" id="category_name" class="p-0"
+									<select type="text" name="category_name" id="category_name"  class="p-0"
 										style="height:100%;width:90%;" placeholder="Category Name" required>
 										<option value="">Select a category</option>
 										@foreach ($category as $value)
@@ -206,16 +206,15 @@
 								<select type="text" name="genral_warranty" id="genral_warranty" class="form-control"
 									placeholder="Genral / Warranty" required>
 									<option value="">Select Type</option>
-									<option value="">Genral</option>
-									<option value="">Warranty</option>
+									<option value="1">Genral</option>
+									<option value="0">Warranty</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label for="image"> Product Image </label>
-								<input type="file" value="{{ old('image') }}" name="image" id="image"
-									class="form-control" placeholder="Product Image">
+								<input type="file" value="{{ old('image') }}" name="image" id="image" class="form-control" placeholder="Product Image">
 							</div>
 						</div>
 					</div>
@@ -231,134 +230,132 @@
 
 
 
-<!-- Create modal -->
-
+<!-- Create company modal -->
 <div class="modal fade company-create-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-	aria-hidden="true">
+	aria-hidden="true"  style="z-index: 99999999999999">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-				<h5 class="modal-title">Create A New company</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-lg-6 col-md-12 col-sm-12">
-						<div class="form-group">
-							<label> Company Name </label>
-							<input type="text" value="{{ old('name') }}" name="name" id="company_name"
-								class="form-control" placeholder="company Name" required>
+		<form id="store_company_with_product_page" action="/company">
+			{{ csrf_field() }}
+			<div class="modal-content">
+				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
+					<h5 class="modal-title">Create A New company</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label>	Company Name </label>
+								<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="company Name" required>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-6 col-md-12 col-sm-12">
-						<div class="form-group">
-							<label> Company Email </label>
-							<input type="email" value="{{ old('name') }}" name="name" id="company_email"
-								class="form-control" placeholder="company Name" required>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label>	Company Email </label>
+								<input type="email" value="{{ old('name') }}" name="email" class="form-control" placeholder="company Name" required>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-6 col-md-12 col-sm-12">
-						<div class="form-group">
-							<label for="description">Company Address</label>
-							<textarea class="form-control" name="description" id="company_address"
-								placeholder="company address" rows="2">{{ old('description') }}</textarea>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="description">Company Address</label>
+								<textarea class="form-control"  name="address"  placeholder="company address" rows="2">{{ old('description') }}</textarea>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-6 col-md-12 col-sm-12">
-						<div class="form-group">
-							<label for="description">Company Description</label>
-							<textarea class="form-control" name="description" id="company_description"
-								placeholder="company description" rows="2">{{ old('description') }}</textarea>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="description">Company Description</label>
+								<textarea class="form-control"  name="description"  placeholder="company description" rows="2">{{ old('description') }}</textarea>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-6 col-md-12 col-sm-12">
-						<div class="form-group">
-							<label> Company Contact </label>
-							<input type="text" value="{{ old('name') }}" name="name" id="company_contact"
-								class="form-control" placeholder="company Contact" required>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label>	Company Contact </label>
+								<input type="text" value="{{ old('name') }}" name="contact" class="form-control" placeholder="company Contact" required>
+							</div>
 						</div>
+						<input type="hidden" value="1" name="isproduct">
 					</div>
 				</div>
+				<div class="modal-footer"  style="border-top: 2px solid rgb(232 227 227);">
+					<input type="submit" class="btn btn-primary" value="Create">
+					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
+				</div>
 			</div>
-			<div class="modal-footer" style="border-top: 2px solid rgb(232 227 227);">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="companyStore()">Create</button>
-				<button type="button" class="btn btn-danger" onclick="resetCreateData()"><i
-						class="fas fa-trash-restore"></i> Reset</button>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
 
-<!-- Create modal -->
-
+<!-- Create category modal -->
 <div class="modal fade create-category" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-	aria-hidden="true">
+	aria-hidden="true"  style="z-index: 99999999999999">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Create A New Category</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="form-group">
-						<label> Category Name </label>
-						<input type="text" value="{{ old('name') }}" name="name" id="category_name" class="form-control"
-							placeholder="Category Name" required>
+		<form id="store_category_with_product_page" action="/category">
+			{{ csrf_field() }}
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Create A New Category</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="form-group">
+							<label>Name </label>
+							<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="Name" required>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="form-group">
+							<label for="description">Description</label>
+							<textarea class="form-control"  name="description"  placeholder="Description" rows="2">{{ old('description') }}</textarea>
+						</div>
 					</div>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="form-group">
-						<label for="description">Category Description</label>
-						<textarea class="form-control" name="description" id="category_description"
-							placeholder="Category description" rows="2">{{ old('description') }}</textarea>
-					</div>
+				<input type="hidden" value="1" name="isproduct">
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" value="Create">
+					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="categoryStore()">Create</button>
-				<button type="button" class="btn btn-danger" onclick="resetCreateDataCategory()"><i
-						class="fas fa-trash-restore"></i> Reset</button>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
 
-<div class="modal fade create-unit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- Create unit modal -->
+<div class="modal fade create-unit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="z-index: 99999999999999">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Create A New Unit</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="form-group">
-						<label> Unit Name </label>
-						<input type="text" value="{{ old('name') }}" name="name" id="name" class="form-control"
-							placeholder="Unit Name" required>
+		<form id="store_unit_with_product_page" action="/unit">
+			{{ csrf_field() }}
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Create A New Unit</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="form-group">
+							<label>	Unit Name </label>
+							<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="Unit Name" required>
+						</div>
 					</div>
 				</div>
+				<input type="hidden" value="1" name="isproduct">
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" value="Create">
+					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onclick="UnitStore()">Create</button>
-				<button type="button" class="btn btn-danger" onclick="resetCreateDataUnit()"><i
-						class="fas fa-trash-restore"></i> Reset</button>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
+
 
 
 <!-- Edit modal -->
@@ -367,6 +364,7 @@
 	<div class="modal-dialog modal-lg">
 		<form method="POST" action="" id="update" enctype="multipart/form-data">
 			{{ csrf_field() }}
+			@method('PUT')
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
 					<h5 class="modal-title">Create A New Product</h5>
@@ -471,15 +469,15 @@
 								<select type="text" name="genral_warranty" id="genral_warranty_edit" class="form-control"
 									placeholder="Genral / Warranty" required>
 									<option value="">Select Type</option>
-									<option value="">Genral</option>
-									<option value="">Warranty</option>
+									<option value="1">Genral</option>
+									<option value="0">Warranty</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label for="image_edit"> Product Image </label>
-								<input type="file" value="{{ old('image') }}" name="image_edit" id="image"
+								<input type="file" value="{{ old('image') }}" name="image"
 									class="form-control" placeholder="Product Image">
 							</div>
 						</div>
@@ -497,376 +495,3 @@
 </div>
 @endsection
 
-@push('js')
-<script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-<script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-@endpush
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-{{-- <script>
-	function GenerateUniqueID() {
-		return (Math.random() * (78500000 - 78400101) + 78400101)|0;
-	}
-	console.log(GenerateUniqueID());
-	console.log($('#barcode'));
-	document.getElementById('product_barcode').value = GenerateUniqueID();
-</script> --}}
-
-
-
-<script>
-	function ProductUpdate() {
-	var name = $('#Product_name_edit').val();
-	var description = $('#Product_description_edit').val();
-	var address = $('#Product_address_edit').val();
-	var email = $('#Product_email_edit').val();
-	var contact = $('#Product_contact_edit').val();
-	var id = $('#Product_edit_id').val();
-	// if(name == '' || description == ''){
-	// 	Swal.fire({
-	// 		icon: 'error',
-	// 		title: 'An Error',
-	// 		text: 'Product name/description not required !',
-	// 		showConfirmButton: false,
-	// 		timer: 1500
-	// 	})
-	// }else{
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			type: "POST",
-			url :"/product/"+id,
-			data : {
-				name: name,
-				description: description,
-				email: email,
-				contact: contact,
-				address: address,
-				_method: 'PUT'
-			},
-			success : function(response) {
-				if(response == 'success'){
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'Product Update successfully!',
-						showConfirmButton: false,
-						timer: 1500
-					})
-				$('.bd-update-lg').modal('hide');
-				$('#Product_name_edit').val('');
-				$('#Product_description_edit').val('');
-				$('#Product_address_edit').val('');
-				$('#Product_email_edit').val('');
-				$('#Product_contact_edit').val('');
-
-				}else{
-					Swal.fire({
-						position: 'top-end',
-						icon: 'error',
-						title: 'An error across',
-						showConfirmButton: false,
-						timer: 1500
-					})
-				}
-			}
-		});
-	// }
-};
-
-
-function resetUpdateData()
-{
-	$('#product_name_edit').val('');
-	$('#product_category_name_edit').val('');
-	$('#product_company_name_edit').val('');
-	$('#product_unit_name_edit').val('');
-	$('#product_barcode_edit').val('');
-	$('#product_model_edit').val('');
-	$('#product_size_edit').val('');
-	$('#alarm_level_edit').val('');
-	$('#genral_warranty_edit').val('');
-}
-
-function companyStore() {
-    var name = $('#company_name').val();
-	var description = $('#company_description').val();
-	var email = $('#company_email').val();
-	var contact = $('#company_contact').val();
-	var address = $('#company_address').val();
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			type:"POST",
-			url : "{{ route('company.store') }}",
-			data : {
-				name: name,
-				description: description,
-				email: email,
-				contact: contact,
-				address: address,
-				isproduct: 1,
-			},
-			success : function(response) {
-				if(jQuery.isNumeric(response)){
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'company Create successfully!',
-						showConfirmButton: false,
-						timer: 1500
-					})
-				var x = document.getElementById("product_company_name");
-				var option = document.createElement("option");
-  				option.text = name;
-				option.value = response;
-				option.setAttribute("selected", "selected");
-				x.add(option, x[1]);
-				$('.company-create-modal').modal('hide');
-				$('#company_name').val('');
-				$('#company_description').val('');
-				$('#company_email').val('');
-				$('#company_contact').val('');
-				$('#company_address').val('');
-				}else{
-					Swal.fire({
-						position: 'top-end',
-						icon: 'error',
-						title: 'An error across',
-						showConfirmButton: false,
-						timer: 1500
-					})
-				}
-			}
-		});
-};
-
-function resetCreateData() {
-	$('#company_name').val('');
-	$('#company_description').val('');
-	$('#company_email').val('');
-	$('#company_contact').val('');
-	$('#company_address').val('');
-}
-
-function categoryStore() {
-var name = $('#category_name').val();
-var description = $('#category_description').val();
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-	$.ajax({
-		type:"POST",
-		url : "{{ route('category.store') }}",
-		data : {
-			name: name,
-			description: description,
-			isproduct: 1,
-		},
-		success : function(response) {
-			if(jQuery.isNumeric(response)){
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'Category Create successfully!',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			var x = document.getElementById("product_category_name");
-			var option = document.createElement("option");
-			option.text = name;
-			option.value = response;
-			option.setAttribute("selected", "selected");
-			x.add(option, x[1]);
-			$('.create-category').modal('hide');
-			$('#category_name').val('');
-			$('#category_description').val('');
-
-			}else{
-				Swal.fire({
-					position: 'top-end',
-					icon: 'error',
-					title: 'An error across',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			}
-		}
-	});
-};
-
-function resetCreateDataCategory() {
-	$('#category_name').val('');
-	$('#category_description').val('');
-}
-
-
-function UnitStore() {
-    var name = $('#name').val();
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-	$.ajax({
-		type:"POST",
-		url : "{{ route('unit.store') }}",
-		data : {
-			name: name,
-			isproduct: 1,
-		},
-		success : function(response) {
-			if(jQuery.isNumeric(response)){
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'Unit Create successfully!',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			var x = document.getElementById("product_unit_name");
-			var option = document.createElement("option");
-			option.text = name;
-			option.value = response;
-			option.setAttribute("selected", "selected");
-			x.add(option, x[1]);
-			$('.create-unit').modal('hide');
-			$('#name').val('');
-
-			}else{
-				Swal.fire({
-					position: 'top-end',
-					icon: 'error',
-					title: 'An error across',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			}
-		}
-	});
-};
-
-function resetCreateDataUnit() {
-	$('#name').val('');
-}
-
-//****** product data update ****** //
-
-$(document).ready(function(){
-$('#upload_update_form_data').on('submit', function(event){
-	var id = $('#product_edit_id').val();
-	console.log(this);
-  event.preventDefault();
-  console.log("asdasd");
-	$.ajax({
-		url : "/product/"+id,
-		method:"PUT",
-		data:new FormData(this),
-		type: 'PUT',
-		dataType:'multipart/form-data',
-		contentType: false,
-		cache: false,
-		processData: false,
-		success : function(response) {
-			console.log(response);
-			console.log("response");
-			if(response == 'success'){
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'Product Update successfully!',
-					showConfirmButton: false,
-					timer: 1500
-				})
-				$('.bd-update-lg').modal('hide');
-				$('#product_name_edit').val('');
-				$('#product_category_name_edit').val('');
-				$('#product_company_name_edit').val('');
-				$('#product_unit_name_edit').val('');
-				$('#product_barcode_edit').val('');
-				$('#product_model_edit').val('');
-				$('#product_size_edit').val('');
-				$('#alarm_level_edit').val('');
-				$('#genral_warranty_edit').val('');
-			}else{
-				Swal.fire({
-					position: 'top-end',
-					icon: 'error',
-					title: 'An error across',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			}
-		},
-		error: function(response) {
-			if(response.responseText == 'success'){
-				Swal.fire({
-					position: 'top-end',
-					icon: 'success',
-					title: 'Product Update successfully!',
-					showConfirmButton: false,
-					timer: 1500
-				})
-				$('.bd-update-lg').modal('hide');
-				$('#product_name_edit').val('');
-				$('#product_category_name_edit').val('');
-				$('#product_company_name_edit').val('');
-				$('#product_unit_name_edit').val('');
-				$('#product_barcode_edit').val('');
-				$('#product_model_edit').val('');
-				$('#product_size_edit').val('');
-				$('#alarm_level_edit').val('');
-				$('#genral_warranty_edit').val('');
-			}else{
-				Swal.fire({
-					position: 'top-end',
-					icon: 'error',
-					title: 'An error across',
-					showConfirmButton: false,
-					timer: 1500
-				})
-			}
-		}
-	});
-});
-});
-
-
-</script>
-
-
-<script>
-	function GenerateUniqueID() {
-		return (Math.random() * (78500000 - 78400101) + 78400101)|0;
-	}
-	setTimeout(() => {
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-	$.ajax({
-		method:"POST",
-		url : "{{ route('LastProduct') }}",
-		dataType:'JSON',
-		contentType: false,
-		cache: false,
-		processData: false,
-		success : function(response) {
-			document.getElementById('barcode').value = response.toString()+GenerateUniqueID();
-		}
-	});
-	}, 500);
-
-	
-</script>

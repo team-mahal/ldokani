@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
         if($request->isproduct == 1){
-            return response()->json($company->id);
+            return response()->json($category->id);
         }else{
             return response()->json("success");
         }
