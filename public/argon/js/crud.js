@@ -117,6 +117,25 @@ function find_customer(id)
 }
 
 
+//******    employee Find Edit Data    ******** */ / 
+function find_employee(id)
+{
+	$.ajax({
+		type:"GET",
+		url :"/employee/"+id+"/edit",
+		data : {},
+		success : function(response) {
+			$('#name').val(response.result.name);
+            $('#email').val(response.result.email);
+            $('#address').val(response.result.address);
+            $('#contact').val(response.result.contact);
+            $('#type').val(response.result.type);
+            $('#balance').val(response.result.balance);
+            $("#update").attr("action", "/employee/" + response.result.id);
+		}
+	});
+}
+
 
 //******    Find distributor edit data    ******** */ / 
 function find_distributor(id)
