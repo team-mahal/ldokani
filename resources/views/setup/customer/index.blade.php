@@ -27,7 +27,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">company List</h3>
+						<h3 class="mb-0">Customer List</h3>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Create New</button>
@@ -48,7 +48,6 @@
 							<th scope="col">Name</th>
 							<th scope="col">Email</th>
 							<th scope="col">Contact</th>
-							<th scope="col">Description</th>
 							<th scope="col">Address</th>
 							<th scope="col">Action</th>
 						</tr>
@@ -60,11 +59,10 @@
 							<td style="">{{$data->name}}</td>
 							<td style="">{{$data->email}}</td>
 							<td style="">{{$data->contact}}</td>
-							<td style="">{{$data->description}}</td>
 							<td style="">{{$data->address}}</td>
 							<td style="display: -webkit-inline-box;">
-								<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target=".bd-update-lg" onclick="find_company({{$data->id}})">Edit</button>
-								<form action="{{ route('company.destroy',$data->id) }}" method="POST">
+								<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target=".bd-update-lg" onclick="find_customer({{$data->id}})">Edit</button>
+								<form action="{{ route('customer.destroy',$data->id) }}" method="POST">
 									@csrf
                     				@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" id="deletebtn"
@@ -88,11 +86,11 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<form id="store" action="/company">
+		<form id="store" action="/customer">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Create A New company</h5>
+					<h5 class="modal-title">Create A New Customer</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -101,32 +99,26 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label>	Company Name </label>
-								<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="company Name" required>
+								<label>	Customer Name </label>
+								<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="Customer Name" required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label>	Company Email </label>
-								<input type="email" value="{{ old('name') }}" name="email" class="form-control" placeholder="company Name" required>
+								<label>	Customer Email </label>
+								<input type="email" value="{{ old('name') }}" name="email" class="form-control" placeholder="Customer E-mail" required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="description">Company Address</label>
-								<textarea class="form-control"  name="address"  placeholder="company address" rows="2">{{ old('description') }}</textarea>
+								<label for="description">Customer Address</label>
+								<textarea class="form-control"  name="address"  placeholder="Customer address" rows="1">{{ old('description') }}</textarea>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="description">Company Description</label>
-								<textarea class="form-control"  name="description"  placeholder="company description" rows="2">{{ old('description') }}</textarea>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>	Company Contact </label>
-								<input type="text" value="{{ old('name') }}" name="contact" class="form-control" placeholder="company Contact" required>
+								<label>	Customer Contact </label>
+								<input type="text" value="{{ old('name') }}" name="contact" class="form-control" placeholder="Customer Contact" required>
 							</div>
 						</div>
 					</div>
@@ -149,7 +141,7 @@
 			@method('PUT')
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Edit Company</h5>
+					<h5 class="modal-title">Edit Customer</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -158,32 +150,26 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label>	Company Name </label>
-								<input type="text" value="{{ old('name') }}" name="name" id="name" class="form-control" placeholder="company Name" required>
+								<label>	Customer Name </label>
+								<input type="text" value="{{ old('name') }}" name="name" id="name" class="form-control" placeholder="Customer Name" required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label>	Company Email </label>
-								<input type="email" value="{{ old('name') }}" name="email" id="email" class="form-control" placeholder="company Name" required>
+								<label>	Customer Email </label>
+								<input type="email" value="{{ old('name') }}" name="email" id="email" class="form-control" placeholder="Customer E-mail" required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="description">Company Address</label>
-								<textarea class="form-control"  name="address" id="address"  placeholder="company Address" rows="2">{{ old('description') }}</textarea>
+								<label for="description">Customer Address</label>
+								<textarea class="form-control"  name="address" id="address"  placeholder="Customer Address" rows="1">{{ old('description') }}</textarea>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="description">Company Description</label>
-								<textarea class="form-control"  name="description" id="description"  placeholder="company description" rows="2">{{ old('description') }}</textarea>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>	Company Contact </label>
-								<input type="text" value="{{ old('name') }}" name="contact" id="contact" class="form-control" placeholder="company Contact" required>
+								<label>	Customer Contact </label>
+								<input type="text" value="{{ old('name') }}" name="contact" id="contact" class="form-control" placeholder="Customer Contact" required>
 							</div>
 						</div>
 					</div>

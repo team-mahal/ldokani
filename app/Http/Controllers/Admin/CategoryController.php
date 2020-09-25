@@ -21,7 +21,11 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->name = $request->name;
         $category->save();
-        return response()->json("success");
+        if($request->isproduct == 1){
+            return response()->json($category->id);
+        }else{
+            return response()->json("success");
+        }
     }
     
     public function edit($id)

@@ -1,8 +1,0 @@
-product_image_edit
-genral_warranty_edit
-alarm_level_edit
-product_size_edit
-barcode_edit
-product_unit_name_edit
-product_model_edit
-product_company_name_edit

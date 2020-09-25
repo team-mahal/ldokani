@@ -18,15 +18,14 @@ class DistributorController extends Controller
     public function store(Request $request)
     {
         $distributor = new Distributor;
-        $distributor->description = $request->input('description');
-        $distributor->name        = $request->input('name');
-        $distributor->address     = $request->input('address');
-        $distributor->email       = $request->input('email');
-        $distributor->contact     = $request->input('contact');
-        $distributor->balance     = $request->input('balance');
+        $distributor->description = $request->description;
+        $distributor->name        = $request->name;
+        $distributor->address     = $request->address;
+        $distributor->email       = $request->email;
+        $distributor->contact     = $request->contact;
+        $distributor->balance     = $request->balance;
         $distributor->save();
-
-        echo 'success';  
+        return response()->json("success");
     }
     
     public function edit($id)
@@ -42,16 +41,15 @@ class DistributorController extends Controller
     public function update(Request $request, Distributor $distributor)
     {
 
-        $description   = $request->input('description');
-        $name          = $request->input('name');
-        $address       = $request->input('address');
-        $email         = $request->input('email');
-        $contact       = $request->input('contact');
-        $balance       = $request->input('balance');
+        $description   = $request->description;
+        $name          = $request->name;
+        $address       = $request->address;
+        $email         = $request->email;
+        $contact       = $request->contact;
+        $balance       = $request->balance;
 
         $distributor->update(['name' => $name, 'description' => $description, 'address' => $address, 'email' => $email,'contact' => $contact, 'balance' => $balance]);
-        echo 'success'; 
-
+        return response()->json("success");
     }
 
     public function destroy(Distributor $distributor)
