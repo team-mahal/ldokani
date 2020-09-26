@@ -49,6 +49,8 @@
                 }
             });
         </script>
+        <!-- flatpickr JS -->
+        <script src="{{ asset('argon') }}/js/flatpickr.js"></script>
         <!-- Argon JS -->
         <script  type="text/javascript" src="{{ URL::asset('argon') }}/js/crud.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

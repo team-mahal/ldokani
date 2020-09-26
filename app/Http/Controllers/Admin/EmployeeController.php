@@ -25,7 +25,11 @@ class EmployeeController extends Controller
         $employee->type        = $request->type;
         $employee->balance     = $request->balance;
         $employee->save();
-        return response()->json("success");
+        if($request->isexpense == 1){
+            return response()->json($employee->id);
+        }else{
+            return response()->json("success");
+        }
     }
     
     public function edit($id)

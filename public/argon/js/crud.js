@@ -117,6 +117,25 @@ function find_customer(id)
 }
 
 
+
+//******    bank Find Edit Data    ******** */ / 
+function find_bank(id)
+{
+	$.ajax({
+		type:"GET",
+		url :"/bankentry/"+id+"/edit",
+		data : {},
+		success : function(response) {
+			$('#name').val(response.result.name);
+            $('#account_no').val(response.result.account_no);
+            $('#account_name').val(response.result.account_name);
+            $('#description').val(response.result.description);
+            $("#update").attr("action", "/bankentry/" + response.result.id);
+		}
+	});
+}
+
+
 //******    employee Find Edit Data    ******** */ / 
 function find_employee(id)
 {
@@ -171,6 +190,20 @@ function find_unit(id)
 	});
 }
 
+//******    Find unit edit data    ******** */ / 
+function find_card(id)
+{
+	$.ajax({
+		type:"GET",
+		url :"/card/"+id+"/edit",
+		data : {},
+		success : function(response) {
+			$('#name').val(response.result.name);
+            $("#update").attr("action", "/card/" + response.result.id);
+		}
+	});
+}
+
 //******    Find product edit data    ******** */ / 
 function find_product(id)
 {
@@ -190,6 +223,40 @@ function find_product(id)
             $('#genral_warranty_edit').val(response.result.warranty);
             $('#edit_id').val(response.result.id);
             $("#update").attr("action", "/product/" + response.result.id);
+		}
+	});
+}
+
+
+
+//******    Find expense edit data    ******** */ / 
+function find_expense(id)
+{
+	$.ajax({
+		type:"GET",
+		url :"/expense/"+id+"/edit",
+		data : {},
+		success : function(response) {
+			$('#type_id_edit').val(response.result.type_id);
+            $('#provider_id_edit').val(response.result.provider_id);
+            $('#employee_id_edit').val(response.result.employee_id);
+            $('#amount_edit').val(response.result.amount);
+            $('#paid_amount_edit').val(response.result.paid_amount);
+            $('#details_edit').val(response.result.details);
+            $('#mode_edit').val(response.result.mode);
+            
+            if(response.result.mode == 2){
+                $('#cheque_edit').show();
+                $('#bank_edit').val(response.cheque.bank_id);
+                $('#cheque_no_edit').val(response.cheque.cheque_no);
+                $('#date_edit').val(response.cheque.date);
+                console.log(response);
+            }else if(response.result.mode == 3)
+            {
+                $('#card_edit1').show();
+                $('#card_edit').val(response.result.mode_type_id);
+            }
+            $("#update").attr("action", "/expense/" + response.result.id);
 		}
 	});
 }
@@ -339,6 +406,183 @@ $('#store_unit_with_product_page').on('submit', function(event){
   });
 
 
+//******    employee store    ******** */ / 
+$('#store_employee_with_expense_page').on('submit', function(event){
+    event.preventDefault();
+    var name = $(this).find('input[name="name"]').val();
+    $.ajax({
+        url : $(this).attr('action'),
+        method:"POST",
+        data: $(this).serialize(),
+        dataType:'JSON',
+        success : function(response) {
+            if(jQuery.isNumeric(response)){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Create successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                var x = document.getElementById("employee_id");
+                var y = document.getElementById("employee_id_edit");
+                $.each($(".employee_id_edit option:selected"), function () {
+                    countries.push($(this).val());
+                    $(this).prop('selected', false); // <-- HERE
+                });
+				var option = document.createElement("option");
+  				option.text = name;
+				option.value = response;
+				option.setAttribute("selected", "selected");
+                x.add(option, x[1]);
+                var option1 = document.createElement("option");
+  				option1.text = name;
+				option1.value = response;
+				option1.setAttribute("selected", "selected");
+                y.add(option1, y[1]);
+                $('.employee-create').modal('hide');
+                $(this).trigger("reset");
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'An error across',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    });
+  });
+
+
+//******    Unit store    ******** */ / 
+$('#store_type_with_expense_page').on('submit', function(event){
+    event.preventDefault();
+    var name = $(this).find('input[name="name"]').val();
+    $.ajax({
+        url : $(this).attr('action'),
+        method:"POST",
+        data: $(this).serialize(),
+        dataType:'JSON',
+        success : function(response) {
+            if(jQuery.isNumeric(response)){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Create successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                var x = document.getElementById("type_id");
+                var y = document.getElementById("type_id_edit");
+                $.each($(".type_id_edit option:selected"), function () {
+                    countries.push($(this).val());
+                    $(this).prop('selected', false); // <-- HERE
+                });
+				var option = document.createElement("option");
+  				option.text = name;
+				option.value = response;
+				option.setAttribute("selected", "selected");
+                x.add(option, x[1]);
+                var option1 = document.createElement("option");
+  				option1.text = name;
+				option1.value = response;
+				option1.setAttribute("selected", "selected");
+                y.add(option1, y[1]);
+                $('.create-type').modal('hide');
+                $(this).trigger("reset");
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'An error across',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    });
+  });
+
+  
+
+  //******    serviceprovider store    ******** */ / 
+$('#store_serviceprovider_with_expense_page').on('submit', function(event){
+    event.preventDefault();
+    var name = $(this).find('input[name="name"]').val();
+    $.ajax({
+        url : $(this).attr('action'),
+        method:"POST",
+        data: $(this).serialize(),
+        dataType:'JSON',
+        success : function(response) {
+            if(jQuery.isNumeric(response)){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Create successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                var x = document.getElementById("serviceprovider_id");
+                var y = document.getElementById("serviceprovider_id_edit");
+                $.each($("#serviceprovider_id_edit option:selected"), function () {
+                    countries.push($(this).val());
+                    $(this).prop('selected', false); // <-- HERE
+                });
+				var option = document.createElement("option");
+  				option.text = name;
+				option.value = response;
+				option.setAttribute("selected", "selected");
+                x.add(option, x[1]);
+                var option1 = document.createElement("option");
+  				option1.text = name;
+				option1.value = response;
+				option1.setAttribute("selected", "selected");
+                y.add(option1, y[1]);
+                $('.create-type').modal('hide');
+                $(this).trigger("reset");
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'An error across',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    });
+  });
+
+  function showDiv(value){
+    if(value==2){
+        $('#cheque').show();
+        $('#card').hide();
+    }else if(value==3){
+        $('#cheque').hide();
+        $('#card').show();
+    }else{
+        $('#cheque').hide();
+        $('#card').hide();
+    }
+}
+
+function showDivEdit(value){
+    if(value==2){
+        $('#cheque_edit').show();
+        $('#card_edit1').hide();
+    }else if(value==3){
+        $('#cheque_edit').hide();
+        $('#card_edit1').show();
+    }else{
+        $('#cheque_edit').hide();
+        $('#card_edit1').hide();
+    }
+}
+
+
     function GenerateUniqueID() {
         return (Math.random() * (78500000 - 78400101) + 78400101)|0;
     }
@@ -360,3 +604,12 @@ $('#store_unit_with_product_page').on('submit', function(event){
         }
     });
     }, 500);
+
+$("#date").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+});
+$("#date1").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+});

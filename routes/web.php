@@ -38,6 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('product', 'Admin\ProductController');
 	Route::resource('customer', 'Admin\CustomerController');
 	Route::resource('employee', 'Admin\EmployeeController');
-	
+	Route::resource('bankentry', 'Admin\BankentryController');
+	Route::resource('card', 'Admin\CardController');
+	Route::resource('expensetype', 'Admin\ExpensetypeController');
+	Route::resource('serviceprovider', 'Admin\ServiceproviderController');
+	Route::resource('expense', 'Admin\ExpenseController');
 });
 

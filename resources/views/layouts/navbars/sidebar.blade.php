@@ -126,6 +126,21 @@
                                     Unit Setup
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('bankentry.index') }}">
+                                    Bank Entry
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('expense.index') }}">
+                                    Expense Entry
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('card.index') }}">
+                                    Card Entry
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
