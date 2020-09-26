@@ -68,52 +68,52 @@ $('#update').on('submit', function(event){
 //******    Category Find Edit Data    ******** */ / 
 function find_category(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/category/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name').val(response.result.name);
-			$('#description').val(response.result.description);
+    $.ajax({
+        type:"GET",
+        url :"/category/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name').val(response.result.name);
+            $('#description').val(response.result.description);
             $("#update").attr("action", "/category/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 
 //******    Company Find Edit Data    ******** */ / 
 function find_company(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/company/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name').val(response.result.name);
+    $.ajax({
+        type:"GET",
+        url :"/company/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name').val(response.result.name);
             $('#description').val(response.result.description);
             $('#email').val(response.result.email);
             $('#address').val(response.result.address);
             $('#contact').val(response.result.contact);
             $("#update").attr("action", "/company/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 //******    Customer Find Edit Data    ******** */ / 
 function find_customer(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/customer/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name').val(response.result.name);
+    $.ajax({
+        type:"GET",
+        url :"/customer/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name').val(response.result.name);
             $('#email').val(response.result.email);
             $('#address').val(response.result.address);
             $('#contact').val(response.result.contact);
             $("#update").attr("action", "/customer/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 
@@ -139,32 +139,32 @@ function find_bank(id)
 //******    employee Find Edit Data    ******** */ / 
 function find_employee(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/employee/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name').val(response.result.name);
+    $.ajax({
+        type:"GET",
+        url :"/employee/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name').val(response.result.name);
             $('#email').val(response.result.email);
             $('#address').val(response.result.address);
             $('#contact').val(response.result.contact);
             $('#type').val(response.result.type);
             $('#balance').val(response.result.balance);
             $("#update").attr("action", "/employee/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 
 //******    Find distributor edit data    ******** */ / 
 function find_distributor(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/distributor/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name').val(response.result.name);
+    $.ajax({
+        type:"GET",
+        url :"/distributor/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name').val(response.result.name);
             $('#description').val(response.result.description);
             $('#email').val(response.result.email);
             $('#address').val(response.result.address);
@@ -172,22 +172,22 @@ function find_distributor(id)
             $('#address').val(response.result.address);
             $('#balance').val(response.result.balance);
             $("#update").attr("action", "/distributor/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 //******    Find unit edit data    ******** */ / 
 function find_unit(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/unit/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name').val(response.result.name);
+    $.ajax({
+        type:"GET",
+        url :"/unit/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name').val(response.result.name);
             $("#update").attr("action", "/unit/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 //******    Find unit edit data    ******** */ / 
@@ -207,12 +207,12 @@ function find_card(id)
 //******    Find product edit data    ******** */ / 
 function find_product(id)
 {
-	$.ajax({
-		type:"GET",
-		url :"/product/"+id+"/edit",
-		data : {},
-		success : function(response) {
-			$('#name_edit').val(response.result.name);
+    $.ajax({
+        type:"GET",
+        url :"/product/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#name_edit').val(response.result.name);
             $('#category_name_edit').val(response.result.category_id);
             $('#company_name_edit').val(response.result.company_id);
             $('#unit_name_edit').val(response.result.unit_id);
@@ -223,8 +223,8 @@ function find_product(id)
             $('#genral_warranty_edit').val(response.result.warranty);
             $('#edit_id').val(response.result.id);
             $("#update").attr("action", "/product/" + response.result.id);
-		}
-	});
+        }
+    });
 }
 
 
@@ -280,17 +280,17 @@ $('#store_company_with_product_page').on('submit', function(event){
                     timer: 1500
                 })
                 var x = document.getElementById("company_name_edit");
-				var option = document.createElement("option");
-  				option.text = name;
-				option.value = response;
-				option.setAttribute("selected", "selected");
+                var option = document.createElement("option");
+                option.text = name;
+                option.value = response;
+                option.setAttribute("selected", "selected");
                 x.add(option, x[1]);
 
                 var y = document.getElementById("company_name");
                 var option1 = document.createElement("option");
-  				option1.text = name;
-				option1.value = response;
-				option1.setAttribute("selected", "selected");
+                option1.text = name;
+                option1.value = response;
+                option1.setAttribute("selected", "selected");
                 y.add(option1, y[1]);
                 $('.company-create-modal').modal('hide');
                 $(this).trigger("reset");
@@ -327,17 +327,17 @@ $('#store_category_with_product_page').on('submit', function(event){
                     timer: 1500
                 })
                 var x = document.getElementById("category_name_edit");
-				var option = document.createElement("option");
-  				option.text = name;
-				option.value = response;
-				option.setAttribute("selected", "selected");
+                var option = document.createElement("option");
+                option.text = name;
+                option.value = response;
+                option.setAttribute("selected", "selected");
                 x.add(option, x[1]);
 
                 var y = document.getElementById("category_name");
                 var option1 = document.createElement("option");
-  				option1.text = name;
-				option1.value = response;
-				option1.setAttribute("selected", "selected");
+                option1.text = name;
+                option1.value = response;
+                option1.setAttribute("selected", "selected");
                 y.add(option1, y[1]);
                 $('.create-category').modal('hide');
                 $(this).trigger("reset");
@@ -380,15 +380,15 @@ $('#store_unit_with_product_page').on('submit', function(event){
                     countries.push($(this).val());
                     $(this).prop('selected', false); // <-- HERE
                 });
-				var option = document.createElement("option");
-  				option.text = name;
-				option.value = response;
-				option.setAttribute("selected", "selected");
+                var option = document.createElement("option");
+                option.text = name;
+                option.value = response;
+                option.setAttribute("selected", "selected");
                 x.add(option, x[1]);
                 var option1 = document.createElement("option");
-  				option1.text = name;
-				option1.value = response;
-				option1.setAttribute("selected", "selected");
+                option1.text = name;
+                option1.value = response;
+                option1.setAttribute("selected", "selected");
                 y.add(option1, y[1]);
                 $('.create-unit').modal('hide');
                 $(this).trigger("reset");
