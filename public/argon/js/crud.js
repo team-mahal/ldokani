@@ -261,6 +261,39 @@ function find_expense(id)
 	});
 }
 
+
+
+//******    Find income edit data    ******** */ / 
+function find_income(id)
+{
+	$.ajax({
+		type:"GET",
+		url :"/income/"+id+"/edit",
+		data : {},
+		success : function(response) {
+			$('#type_id_edit').val(response.result.type_id);
+            $('#provider_id_edit').val(response.result.provider_id);
+            $('#amount_edit').val(response.result.amount);
+            $('#paid_amount_edit').val(response.result.paid_amount);
+            $('#details_edit').val(response.result.details);
+            $('#mode_edit').val(response.result.mode);
+            
+            if(response.result.mode == 2){
+                $('#cheque_edit').show();
+                $('#bank_edit').val(response.cheque.bank_id);
+                $('#cheque_no_edit').val(response.cheque.cheque_no);
+                $('#date_edit').val(response.cheque.date);
+                console.log(response);
+            }else if(response.result.mode == 3)
+            {
+                $('#card_edit1').show();
+                $('#card_edit').val(response.result.mode_type_id);
+            }
+            $("#update").attr("action", "/income/" + response.result.id);
+		}
+	});
+}
+
 //******    Company store    ******** */ / 
 $('#store_company_with_product_page').on('submit', function(event){
     event.preventDefault();
@@ -526,9 +559,8 @@ $('#store_serviceprovider_with_expense_page').on('submit', function(event){
                     timer: 1500
                 })
                 var x = document.getElementById("serviceprovider_id");
-                var y = document.getElementById("serviceprovider_id_edit");
-                $.each($("#serviceprovider_id_edit option:selected"), function () {
-                    countries.push($(this).val());
+                var y = document.getElementById("provider_id_edit");
+                $.each($("#provider_id_edit option:selected"), function () {
                     $(this).prop('selected', false); // <-- HERE
                 });
 				var option = document.createElement("option");
@@ -541,7 +573,7 @@ $('#store_serviceprovider_with_expense_page').on('submit', function(event){
 				option1.value = response;
 				option1.setAttribute("selected", "selected");
                 y.add(option1, y[1]);
-                $('.create-type').modal('hide');
+                $('.provider-create').modal('hide');
                 $(this).trigger("reset");
             }else{
                 Swal.fire({

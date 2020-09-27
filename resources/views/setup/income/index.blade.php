@@ -9,7 +9,7 @@
 <div class="header bg-gradient-primary pt-5 pt-md-7"></div>
 <div class="container-fluid min-700px">
 
-	{{-- Expense List  --}}
+	{{-- Income List  --}}
 	<div class="col-xl-12">
 		@csrf
 		@if ($message = Session::get('success'))
@@ -35,7 +35,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">Expense List</h3>
+						<h3 class="mb-0">Income List</h3>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
@@ -54,11 +54,11 @@
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">#</th>
-							<th scope="col">Expense Type</th>
-							<th scope="col">Expense Service Provider</th>
-							<th scope="col">Expense Amount</th>
-							<th scope="col">Expense Total Paid</th>
-							<th scope="col">Expense Details</th>
+							<th scope="col">Income Type</th>
+							<th scope="col">Income Service Provider</th>
+							<th scope="col">Income Amount</th>
+							<th scope="col">Income Total Paid</th>
+							<th scope="col">Income Details</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -73,8 +73,8 @@
 							<td style="">{{$data->details}}</td>
 							<td style="display: -webkit-inline-box;">
 								<button type="button" class="btn btn-sm btn-success" data-toggle="modal"
-									data-target=".bd-update-lg" onclick="find_expense({{$data->id}})">Edit</button>
-								<form action="{{ route('expense.destroy',$data->id) }}" method="POST">
+									data-target=".bd-update-lg" onclick="find_income({{$data->id}})">Edit</button>
+								<form action="{{ route('income.destroy',$data->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" class="btn btn-danger btn-sm"
@@ -100,11 +100,11 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<form method="POST" action="/expense" id="store">
+		<form method="POST" action="/income" id="store">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Expense Entry</h5>
+					<h5 class="modal-title">Income Entry</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -113,7 +113,7 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="type_id"> Expense Type * </label>
+								<label for="type_id"> Income Type * </label>
 								<div class="form-control p-0">
 									<select type="text" name="type_id" id="type_id"  class="p-0" style="height:100%;width:90%;" required>
 										<option value="">Select a Type</option>
@@ -147,25 +147,8 @@
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="employee"> Employee </label>
-								<div class="form-control p-0">
-									<select type="text" name="employee_id" id="employee_id" class="p-0" style="height:100%;width:90%;" required>
-										<option value="">Select a employee </option>
-										@foreach ($employee as $value)
-										<option value="{{$value->id}}">{{$value->name}}</option>
-										@endforeach
-									</select>
-									<i class="fas fa-plus-square fa-w-14 fa-2x"
-										style="font-size: 52px;transform: translate(5px, -4px);position: absolute;"
-										type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-										data-target=".employee-create"></i>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label> Expense Amount * </label>
-								<input type="text" value="{{ old('amount') }}" name="amount" class="form-control" placeholder="Expense Amount " required>
+								<label> Income Amount * </label>
+								<input type="text" value="{{ old('amount') }}" name="amount" class="form-control" placeholder="Income Amount " required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
@@ -174,10 +157,10 @@
 								<input type="text" value="{{ old('paid_amount') }}" name="paid_amount" class="form-control" placeholder="Paid Amount" required>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
+						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label> Expense Details </label>
-								<textarea type="number" name="details" class="form-control" placeholder="Expense Details" rows="2" style="height: 44px;"></textarea>
+								<label> Income Details </label>
+								<textarea type="number" name="details" class="form-control" placeholder="Income Details" rows="2" style="height: 44px;"></textarea>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12">
@@ -295,7 +278,7 @@
 								<input type="text" value="{{ old('name') }}" name="contact" class="form-control" placeholder="Phone Number" required>
 							</div>
 						</div>
-						<input type="hidden" value="1" name="isexpense">
+						<input type="hidden" value="1" name="isincome">
 					</div>
 				</div>
 				<div class="modal-footer"  style="border-top: 2px solid rgb(232 227 227);">
@@ -308,7 +291,7 @@
 </div>
 
 
-<!-- Create expensetype modal -->
+<!-- Create Incometype modal -->
 <div class="modal fade create-type" id="create-type" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true"  style="z-index: 99999999999999">
 	<div class="modal-dialog modal-lg">
@@ -316,7 +299,7 @@
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Create A New Expense Type</h5>
+					<h5 class="modal-title">Create A New Income Type</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -335,73 +318,9 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" value="1" name="type" >
-				<input type="hidden" name="isexpense" value="1">
+				<input type="hidden" value="2" name="type" >
+				<input type="hidden" name="isincome" value="1">
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" value="Create">
-					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
-
-
-<!-- Create modal -->
-<div class="modal fade employee-create" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<form id="store_employee_with_expense_page" action="/employee">
-			{{ csrf_field() }}
-			<div class="modal-content">
-				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Create A New Employee</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>	Employee Name </label>
-								<input type="text" value="{{ old('name') }}" name="name" class="form-control" placeholder="Employee Name" required>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label for="description">Employee Address</label>
-								<textarea class="form-control"  name="address"  placeholder="Employee address" rows="1">{{ old('description') }}</textarea>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>	Employee Contact </label>
-								<input type="text" value="{{ old('name') }}" name="contact" class="form-control" placeholder="Employee Contact" required>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label for="description">Employee Type</label>
-								<textarea class="form-control"  name="type"  placeholder="Employee Type" rows="1">{{ old('type') }}</textarea>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>	Employee Email </label>
-								<input type="email" value="{{ old('name') }}" name="email" class="form-control" placeholder="Employee E-mail" required>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>	Int Balance </label>
-								<input type="number" value="{{ old('name') }}" name="balance" class="form-control" placeholder="Int Balance" required>
-							</div>
-						</div>
-					</div>
-				</div>
-				<input type="hidden" name="isexpense" value="1">
-				<div class="modal-footer"  style="border-top: 2px solid rgb(232 227 227);">
 					<input type="submit" class="btn btn-primary" value="Create">
 					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
 				</div>
@@ -420,7 +339,7 @@
 			@method('PUT')
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Expense Edit</h5>
+					<h5 class="modal-title">Income Edit</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -429,7 +348,7 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="type_id_edit"> Expense Type * </label>
+								<label for="type_id_edit"> Income Type * </label>
 								<div class="form-control p-0">
 									<select type="text" name="type_id" id="type_id_edit"  class="p-0" style="height:100%;width:90%;" required>
 										<option value="">Select a Type</option>
@@ -463,25 +382,8 @@
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="employee_edit"> Employee </label>
-								<div class="form-control p-0">
-									<select type="text" name="employee_id" id="employee_id_edit" class="p-0" style="height:100%;width:90%;" required>
-										<option value="">Select a employee </option>
-										@foreach ($employee as $value)
-										<option value="{{$value->id}}">{{$value->name}}</option>
-										@endforeach
-									</select>
-									<i class="fas fa-plus-square fa-w-14 fa-2x"
-										style="font-size: 52px;transform: translate(5px, -4px);position: absolute;"
-										type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-										data-target=".employee-create"></i>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label for="amount_edit"> Expense Amount * </label>
-								<input type="text" value="{{ old('amount') }}" name="amount" id="amount_edit" class="form-control" placeholder="Expense Amount " required>
+								<label for="amount_edit"> Income Amount * </label>
+								<input type="text" value="{{ old('amount') }}" name="amount" id="amount_edit" class="form-control" placeholder="Income Amount " required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
@@ -490,10 +392,10 @@
 								<input type="text" value="{{ old('paid_amount') }}" name="paid_amount" id="paid_amount_edit" class="form-control" placeholder="Paid Amount" required>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
+						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="details_edit"> Expense Details </label>
-								<textarea type="number" name="details" class="form-control" id="details_edit" placeholder="Expense Details" rows="2" style="height: 44px;"></textarea>
+								<label for="details_edit"> Income Details </label>
+								<textarea type="number" name="details" class="form-control" id="details_edit" placeholder="Income Details" rows="2" style="height: 44px;"></textarea>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12">

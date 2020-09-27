@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpensetypesTable extends Migration
+class CreateBarcodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateExpensetypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('expensetypes', function (Blueprint $table) {
+        Schema::create('barcodes', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->text('details')->nullable();
-            $table->integer('type');
+            $table->integer('product_id');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateExpensetypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expensetypes');
+        Schema::dropIfExists('barcodes');
     }
 }

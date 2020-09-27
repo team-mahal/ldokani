@@ -137,6 +137,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('income.index') }}">
+                                    Income Entry
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('card.index') }}">
                                     Card Entry
                                 </a>

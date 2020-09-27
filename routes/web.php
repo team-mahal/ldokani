@@ -42,5 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('expensetype', 'Admin\ExpensetypeController');
 	Route::resource('serviceprovider', 'Admin\ServiceproviderController');
 	Route::resource('expense', 'Admin\ExpenseController');
+	Route::resource('income', 'Admin\IncomeController');
+	Route::resource('barcode', 'Admin\BarcodeController');
 });
 

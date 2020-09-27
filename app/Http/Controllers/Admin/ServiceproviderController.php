@@ -28,6 +28,8 @@ class ServiceproviderController extends Controller
 
         if($request->isexpense == 1){
             return response()->json($serviceprovider->id);
+        }elseif($request->isincome == 1){
+            return response()->json($serviceprovider->id);
         }else{
             return response()->json("success");
         }

@@ -20,8 +20,11 @@ class ExpensetypeController extends Controller
         $expensetype = new Expensetype;
         $expensetype->name    = $request->name;
         $expensetype->details = $request->details;
+        $expensetype->type = $request->type;
         $expensetype->save();
         if($request->isexpense == 1){
+            return response()->json($expensetype->id);
+        }elseif($request->isincome == 1){
             return response()->json($expensetype->id);
         }else{
             return response()->json("success");
@@ -42,7 +45,8 @@ class ExpensetypeController extends Controller
     {
         $name = $request->name;
         $details = $request->details;
-        $expensetype->update(['name' => $name, 'details' => $details]);
+        $type = $request->type;
+        $expensetype->update(['name' => $name, 'details' => $details, 'type' => $type]);
         return response()->json("success");
     }
 

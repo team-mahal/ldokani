@@ -4,25 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Expense;
-use App\Employee;
+use App\Income;
 use App\Expensetype;
 use App\Serviceprovider;
 use App\Bankentry;
 use App\Card;
 use App\Cheque;
 
-class ExpenseController extends Controller
+class IncomeController extends Controller
 {
     public function index()
     {
-        $datas = Expense::with('expense_type')->with('service_provider')->orderBy('id', 'DESC')->paginate(10);
-        $expensetype = Expensetype::orderBy('id', 'DESC')->where('type', 1)->select('name','id')->get();
+        $datas = Income::with('expense_type')->with('service_provider')->orderBy('id', 'DESC')->paginate(10);
+        $expensetype = Expensetype::orderBy('id', 'DESC')->where('type', 2)->select('name','id')->get();
         $serviceprovider = Serviceprovider::orderBy('id', 'DESC')->select('name','id')->get();
-        $employee = Employee::orderBy('id', 'DESC')->select('name','id')->get();
         $bank = Bankentry::orderBy('id', 'DESC')->select('name','id')->get();
         $card = Card::orderBy('id', 'DESC')->select('name','id')->get();
-        return view('setup.expense.index', ['datas' => $datas, 'expensetype' => $expensetype, 'serviceprovider' => $serviceprovider, 'employee' => $employee, 'bank' => $bank, 'card' => $card]);
+        return view('setup.income.index', ['datas' => $datas, 'expensetype' => $expensetype, 'serviceprovider' => $serviceprovider, 'bank' => $bank, 'card' => $card]);
     }
 
 
@@ -42,16 +40,15 @@ class ExpenseController extends Controller
             $mode_type_id = $request->card;
         }
 
-        $expense = new Expense;
-        $expense->type_id         = $request->type_id;
-        $expense->provider_id     = $request->serviceprovider_id;
-        $expense->employee_id     = $request->employee_id;
-        $expense->amount          = $request->amount;
-        $expense->paid_amount     = $request->paid_amount;
-        $expense->details         = $request->details;
-        $expense->mode            = $request->mode;
-        $expense->mode_type_id    = $mode_type_id;
-        $expense->save();
+        $income = new Income;
+        $income->type_id         = $request->type_id;
+        $income->provider_id     = $request->serviceprovider_id;
+        $income->amount          = $request->amount;
+        $income->paid_amount     = $request->paid_amount;
+        $income->details         = $request->details;
+        $income->mode            = $request->mode;
+        $income->mode_type_id    = $mode_type_id;
+        $income->save();
 
         return response()->json("success");
     }
@@ -60,7 +57,7 @@ class ExpenseController extends Controller
     {
         if(request()->ajax())
         {
-            $data = Expense::findOrFail($id);
+            $data = Income::findOrFail($id);
             if($data->mode == 2)
             {
                 $cheque = Cheque::findOrFail($data->mode_type_id);
@@ -73,13 +70,13 @@ class ExpenseController extends Controller
     }
 
 
-    public function update(Request $request, Expense $expense)
+    public function update(Request $request, Income $income)
     {
 
         if($request->mode == 2)
         {
-            if($expense->mode == 2){
-                $cheque = Cheque::find($expense->mode_type_id);
+            if($income->mode == 2){
+                $cheque = Cheque::find($income->mode_type_id);
                 $cheque->bank_id     = $request->bank;
                 $cheque->cheque_no   = $request->cheque_no;
                 $cheque->date        = $request->date;
@@ -98,22 +95,21 @@ class ExpenseController extends Controller
             $mode_type_id = $request->card;
         }
 
-        $expense->type_id         = $request->type_id;
-        $expense->provider_id     = $request->serviceprovider_id;
-        $expense->employee_id     = $request->employee_id;
-        $expense->amount          = $request->amount;
-        $expense->paid_amount     = $request->paid_amount;
-        $expense->details         = $request->details;
-        $expense->mode            = $request->mode;
-        $expense->mode_type_id    = $mode_type_id;
-        $expense->update();
+        $income->type_id         = $request->type_id;
+        $income->provider_id     = $request->serviceprovider_id;
+        $income->amount          = $request->amount;
+        $income->paid_amount     = $request->paid_amount;
+        $income->details         = $request->details;
+        $income->mode            = $request->mode;
+        $income->mode_type_id    = $mode_type_id;
+        $income->update();
         return response()->json("success");
     }
 
-    public function destroy(Expense $expense)
+    public function destroy(Income $income)
     {
-        $expense->delete();
+        $income->delete();
         return back()
-            ->with('success','Expense Delete Successfully.');
+            ->with('success','Income Delete Successfully.');
     }
 }
