@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->string('model')->nullable();
             $table->integer('barcode');
             $table->string('image')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ class CreateExpensetypesTable extends Migration
             $table->string('name')->nullable();
             $table->text('details')->nullable();
             $table->integer('type');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

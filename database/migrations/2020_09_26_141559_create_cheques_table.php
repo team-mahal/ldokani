@@ -18,6 +18,7 @@ class CreateChequesTable extends Migration
             $table->string('bank_id')->nullable();
             $table->string('cheque_no')->nullable();
             $table->string('date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

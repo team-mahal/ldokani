@@ -16,6 +16,7 @@ class CreateBarcodesTable extends Migration
         Schema::create('barcodes', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

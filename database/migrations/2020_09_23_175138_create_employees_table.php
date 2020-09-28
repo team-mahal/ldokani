@@ -21,6 +21,7 @@ class CreateEmployeesTable extends Migration
             $table->text('address')->nullable();
             $table->text('type')->nullable();
             $table->integer('balance')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

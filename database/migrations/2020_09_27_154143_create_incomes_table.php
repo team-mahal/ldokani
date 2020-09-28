@@ -22,6 +22,7 @@ class CreateIncomesTable extends Migration
             $table->text('details');
             $table->enum('mode', ['1', '2', '3']);
             $table->integer('mode_type_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

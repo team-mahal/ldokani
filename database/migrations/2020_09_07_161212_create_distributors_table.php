@@ -21,6 +21,7 @@ class CreateDistributorsTable extends Migration
             $table->text('address')->nullable();
             $table->text('description')->nullable();
             $table->integer('balance')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

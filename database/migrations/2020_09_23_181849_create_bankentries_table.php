@@ -19,6 +19,7 @@ class CreateBankentriesTable extends Migration
             $table->string('account_no')->nullable();
             $table->string('account_name')->nullable();
             $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
