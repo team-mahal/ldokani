@@ -83,66 +83,68 @@
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
+                @php $seg1 = Request::segment(1) @endphp
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                    @if( $seg1 == 'category' || $seg1 == 'company' || $seg1 == 'distributor' || $seg1 == 'product' || $seg1 == 'customer' || $seg1 == 'employee' || $seg1 == 'unit' || $seg1 == 'bankentry' || $seg1 == 'expense' || $seg1 == 'income' || $seg1 == 'card') @php $li1 = true @endphp @else @php $li1 = false @endphp  @endif
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="@if($li1 == true){{"true"}}@else{{"false"}}@endif" aria-controls="navbar-examples">
                         <i class="fas fa-cog" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">Setup</span>
                     </a>
 
-                    <div class="collapse show" id="navbar-examples">
+                    <div class="collapse @if($li1 == true) show @endif" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('category.index') }}">
+                                <a class="nav-link @if($seg1 == 'category') bg-primary text-white @endif" href="{{ route('category.index') }}">
                                     Category Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('company.index') }}">
+                                <a class="nav-link @if($seg1 == 'company') bg-primary text-white @endif" href="{{ route('company.index') }}">
                                     Company Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('distributor.index') }}">
+                                <a class="nav-link @if($seg1 == 'distributor') bg-primary text-white @endif" href="{{ route('distributor.index') }}">
                                     Distributor Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('product.index') }}">
+                                <a class="nav-link @if($seg1 == 'product') bg-primary text-white @endif" href="{{ route('product.index') }}">
                                     Product Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('customer.index') }}">
+                                <a class="nav-link @if($seg1 == 'customer') bg-primary text-white @endif" href="{{ route('customer.index') }}">
                                     Customer Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('employee.index') }}">
+                                <a class="nav-link @if($seg1 == 'employee') bg-primary text-white @endif" href="{{ route('employee.index') }}">
                                     Employee Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('unit.index') }}">
+                                <a class="nav-link @if($seg1 == 'unit') bg-primary text-white @endif" href="{{ route('unit.index') }}">
                                     Unit Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('bankentry.index') }}">
+                                <a class="nav-link @if($seg1 == 'bankentry') bg-primary text-white @endif" href="{{ route('bankentry.index') }}">
                                     Bank Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('expense.index') }}">
+                                <a class="nav-link @if($seg1 == 'expense') bg-primary text-white @endif" href="{{ route('expense.index') }}">
                                     Expense Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('income.index') }}">
+                                <a class="nav-link @if($seg1 == 'income') bg-primary text-white @endif" href="{{ route('income.index') }}">
                                     Income Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('card.index') }}">
+                                <a class="nav-link @if($seg1 == 'card') bg-primary text-white @endif" href="{{ route('card.index') }}">
                                     Card Entry
                                 </a>
                             </li>
