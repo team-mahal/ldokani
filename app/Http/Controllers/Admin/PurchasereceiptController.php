@@ -115,6 +115,6 @@ class PurchasereceiptController extends Controller
     {
         $purchasereceipt->delete();
         return back()
-            ->with('success','purchasereceipt Delete Successfully.');
+            ->with('success','Purchase Receipt Delete Successfully.');
     }
 }

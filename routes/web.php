@@ -23,6 +23,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
@@ -45,6 +47,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('income', 'Admin\IncomeController');
 	Route::resource('barcode', 'Admin\BarcodeController');
 	Route::resource('purchasereceipt', 'Admin\PurchasereceiptController');
+	Route::resource('purchaselisting', 'Admin\PurchaselistingController');
 	
+
+
+	/***         */
+	Route::get('get-purchasereceipt', 'Admin\PurchaselistingController@getPurchasereceipt');
+	Route::get('get-product', 'Admin\PurchaselistingController@getProduct');
 });
 

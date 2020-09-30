@@ -15,9 +15,14 @@ class CreatePurchaselistingsTable extends Migration
     {
         Schema::create('purchaselistings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->text('details')->nullable();
-            $table->integer('type');
+            $table->integer('purchasereceipt_id');
+            $table->integer('product_id');
+            $table->integer('quantity')->nullable();
+            $table->integer('total_buy_price')->nullable();
+            $table->string('expire_date')->nullable();
+            $table->integer('mrp')->nullable();
+            $table->integer('unit_buy_price');
+            $table->integer('sale_price');
             $table->softDeletes();
             $table->timestamps();
         });
