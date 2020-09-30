@@ -9,7 +9,7 @@
 <div class="header bg-gradient-primary pt-5 pt-md-7"></div>
 <div class="container-fluid min-700px">
 
-	{{-- Purchase List  --}}
+	{{-- purchasereceipt List  --}}
 	<div class="col-xl-12">
 		@csrf
 		@if ($message = Session::get('success'))
@@ -35,7 +35,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">Purchase List</h3>
+						<h3 class="mb-0">Purchase Receipt List</h3>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
@@ -55,7 +55,7 @@
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">Distributor</th>
-							<th scope="col">Purchase Amount</th>
+							<th scope="col">purchasereceipt Amount</th>
 							<th scope="col">Transport Cost</th>
 							<th scope="col">Final Amount</th>
 							<th scope="col">Total Paid</th>
@@ -75,8 +75,8 @@
 							<td style="">@if(empty($data->payment_amount)) {{ "Unpaid" }} @else {{ "Paid" }} @endif</td>
 							<td style="display: -webkit-inline-box;">
 								<button type="button" class="btn btn-sm btn-success" data-toggle="modal"
-									data-target=".bd-update-lg" onclick="find_purchase({{$data->id}})">Edit</button>
-								<form action="{{ route('purchase.destroy',$data->id) }}" method="POST">
+									data-target=".bd-update-lg" onclick="find_purchasereceipt({{$data->id}})">Edit</button>
+								<form action="{{ route('purchasereceipt.destroy',$data->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" class="btn btn-danger btn-sm"
@@ -102,11 +102,11 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<form method="POST" action="/purchase" id="store">
+		<form method="POST" action="/purchasereceipt" id="store">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Purchase Entry</h5>
+					<h5 class="modal-title">purchasereceipt Entry</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -132,7 +132,7 @@
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label> Purchase Amount * </label>
+								<label> purchasereceipt Amount * </label>
 								<input type="number" name="amount" id="amount"  oninput="totalAmount()" class="form-control" placeholder="Ex: 1000" required>
 							</div>
 						</div>
@@ -236,7 +236,7 @@
 <div class="modal fade distributor-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true"  style="z-index: 99999999999999">
 	<div class="modal-dialog modal-lg">
-		<form id="store_distributor_with_purchase_page" action="/distributor">
+		<form id="store_distributor_with_purchasereceipt_page" action="/distributor">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
@@ -285,7 +285,7 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" value="1" name="ispurchase">
+				<input type="hidden" value="1" name="ispurchasereceipt">
 				<div class="modal-footer"  style="border-top: 2px solid rgb(232 227 227);">
 					<input type="submit" class="btn btn-primary" value="Create">
 					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
@@ -306,7 +306,7 @@
 			@method('PUT')
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Purchase Edit</h5>
+					<h5 class="modal-title">purchasereceipt Edit</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -332,7 +332,7 @@
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label> Purchase Amount * </label>
+								<label> purchasereceipt Amount * </label>
 								<input type="number" name="amount" id="amount_edit"  oninput="totalAmountEdit()" class="form-control" placeholder="Ex: 1000" required>
 							</div>
 						</div>
@@ -357,7 +357,7 @@
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label>Date </label>
-								<div class="flatpickr form__group field" id="date2"  class="form__field">
+								<div class="flatpickr form__group field" id="date3"  class="form__field">
 									<input data-input type="text" value="{{ old('date') }}" name="date1" id="date1_edit" class="form-control" placeholder="Date ">
 							  	</div>
 							</div>
@@ -365,7 +365,7 @@
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label for="mode">Payment Mode *</label>
-								<select type="text" name="mode" id="mode_edit" class="form-control" onchange="showDiv(this.value)">
+								<select type="text" name="mode" id="mode_edit" class="form-control" onchange="showDivEdit(this.value)">
 									<option value="">Select Mode</option> 
 									<option value="1">Cash</option> 
 									<option value="2">Cheque</option> 
@@ -401,7 +401,7 @@
 						<div class="col-lg-4 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label>Date </label>
-								<div class="flatpickr form__group field" id="date"  class="form__field">
+								<div class="flatpickr form__group field" id="date1"  class="form__field">
 									<input data-input type="text" value="{{ old('date') }}" name="date" id="date_edit" class="form-control" placeholder="Date ">
 							  	</div>
 							</div>

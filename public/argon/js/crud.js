@@ -298,11 +298,11 @@ function find_income(id)
 
 
 
-function find_purchase(id)
+function find_purchasereceipt(id)
 {
 	$.ajax({
 		type:"GET",
-		url :"/purchase/"+id+"/edit",
+		url :"/purchasereceipt/"+id+"/edit",
 		data : {},
 		success : function(response) {
             $('#distributor_id_edit').val(response.result.distributor_id);
@@ -326,7 +326,7 @@ function find_purchase(id)
                 $('#card_edit1').show();
                 $('#card_edit').val(response.result.mode_type_id);
             }
-            $("#update").attr("action", "/purchase/" + response.result.id);
+            $("#update").attr("action", "/purchasereceipt/" + response.result.id);
 		}
 	});
 }
@@ -628,7 +628,7 @@ $('#store_serviceprovider_with_expense_page').on('submit', function(event){
   
 
     //******    Distributor store    ******** */ / 
-$('#store_distributor_with_purchase_page').on('submit', function(event){
+$('#store_distributor_with_purchasereceipt_page').on('submit', function(event){
     event.preventDefault();
     var name = $(this).find('input[name="name"]').val();
     $.ajax({
