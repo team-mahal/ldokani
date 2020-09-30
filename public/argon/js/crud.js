@@ -1,6 +1,7 @@
 //******    Category store    ******** */ / 
 $('#store').on('submit', function(event){
     event.preventDefault();
+    $("#store :disabled").removeAttr('disabled');
     $.ajax({
         url : $(this).attr('action'),
         method:"POST",
@@ -34,6 +35,7 @@ $('#store').on('submit', function(event){
 //******    Category Update    ******** *// 
 $('#update').on('submit', function(event){
     event.preventDefault();
+    $("#update :disabled").removeAttr('disabled');
       $.ajax({
         url : $(this).attr('action'),
         method:"POST",
@@ -290,6 +292,41 @@ function find_income(id)
                 $('#card_edit').val(response.result.mode_type_id);
             }
             $("#update").attr("action", "/income/" + response.result.id);
+		}
+	});
+}
+
+
+
+function find_purchase(id)
+{
+	$.ajax({
+		type:"GET",
+		url :"/purchase/"+id+"/edit",
+		data : {},
+		success : function(response) {
+            $('#distributor_id_edit').val(response.result.distributor_id);
+            $('#amount_edit').val(response.result.amount);
+            $('#transport_cost_edit').val(response.result.transport_cost);
+            $('#discount_edit').val(response.result.discount);
+            $('#final_amount_edit').val(response.result.final_amount);
+            $('#amount_edit').val(response.result.amount);
+            $('#date1_edit').val(response.result.date);
+            $('#payment_amount').val(response.result.payment_amount);
+            $('#mode_edit').val(response.result.mode);
+            
+            if(response.result.mode == 2){
+                $('#cheque_edit').show();
+                $('#bank_edit').val(response.cheque.bank_id);
+                $('#cheque_no_edit').val(response.cheque.cheque_no);
+                $('#date_edit').val(response.cheque.date);
+                console.log(response);
+            }else if(response.result.mode == 3)
+            {
+                $('#card_edit1').show();
+                $('#card_edit').val(response.result.mode_type_id);
+            }
+            $("#update").attr("action", "/purchase/" + response.result.id);
 		}
 	});
 }
@@ -588,6 +625,56 @@ $('#store_serviceprovider_with_expense_page').on('submit', function(event){
     });
   });
 
+  
+
+    //******    Distributor store    ******** */ / 
+$('#store_distributor_with_purchase_page').on('submit', function(event){
+    event.preventDefault();
+    var name = $(this).find('input[name="name"]').val();
+    $.ajax({
+        url : $(this).attr('action'),
+        method:"POST",
+        data: $(this).serialize(),
+        dataType:'JSON',
+        success : function(response) {
+            if(jQuery.isNumeric(response)){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Create successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                var x = document.getElementById("distributor_id");
+                var y = document.getElementById("distributor_id_edit");
+                $.each($("#distributor_id_edit option:selected"), function () {
+                    $(this).prop('selected', false); // <-- HERE
+                });
+				var option = document.createElement("option");
+  				option.text = name;
+				option.value = response;
+				option.setAttribute("selected", "selected");
+                x.add(option, x[1]);
+                var option1 = document.createElement("option");
+  				option1.text = name;
+				option1.value = response;
+				option1.setAttribute("selected", "selected");
+                y.add(option1, y[1]);
+                $('.distributor-modal').modal('hide');
+                $(this).trigger("reset");
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'An error across',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    });
+  });
+
   function showDiv(value){
     if(value==2){
         $('#cheque').show();
@@ -637,11 +724,54 @@ function showDivEdit(value){
     });
     }, 500);
 
+var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
 $("#date").flatpickr({
     wrap: true,
     dateFormat: "Y-m-d",
+    defaultDate: utc
 });
 $("#date1").flatpickr({
     wrap: true,
     dateFormat: "Y-m-d",
+    defaultDate: utc
 });
+$("#date2").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+    defaultDate: utc
+});
+$("#date3").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+    defaultDate: utc
+});
+
+
+function totalAmount()
+{
+    var amount = $('#amount').val();
+    var transport_cost = $('#transport_cost').val();
+    var discount = $('#discount').val();
+    if(isEmpty(amount)){ amount = 0}
+    if(isEmpty(transport_cost)){ transport_cost = 0}
+    if(isEmpty(discount)){ discount = 0}
+    var total = (parseInt(amount) + parseInt(transport_cost)) - parseInt(discount);
+    $('#final_amount').val(total);
+}
+
+function totalAmountEdit()
+{
+    var amount = $('#amount_edit').val();
+    var transport_cost = $('#transport_cost_edit').val();
+    var discount = $('#discount_edit').val();
+    if(isEmpty(amount)){ amount = 0}
+    if(isEmpty(transport_cost)){ transport_cost = 0}
+    if(isEmpty(discount)){ discount = 0}
+    var total = (parseInt(amount) + parseInt(transport_cost)) - parseInt(discount);
+    $('#final_amount_edit').val(total);
+}
+
+
+function isEmpty(property) {
+    return (property === null || property === "" || typeof property === "undefined");
+ }

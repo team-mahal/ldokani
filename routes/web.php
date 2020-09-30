@@ -44,5 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('expense', 'Admin\ExpenseController');
 	Route::resource('income', 'Admin\IncomeController');
 	Route::resource('barcode', 'Admin\BarcodeController');
+	Route::resource('purchase', 'Admin\PurchaseController');
+	
 });
 

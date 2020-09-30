@@ -25,7 +25,11 @@ class DistributorController extends Controller
         $distributor->contact     = $request->contact;
         $distributor->balance     = $request->balance;
         $distributor->save();
-        return response()->json("success");
+        if($request->ispurchase == 1){
+            return response()->json($distributor->id);
+        }else{
+            return response()->json("success");
+        }
     }
     
     public function edit($id)

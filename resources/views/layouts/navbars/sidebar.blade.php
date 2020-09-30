@@ -151,6 +151,28 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    @if( $seg1 == 'purchase' || $seg1 == 'company') @php $li2 = true @endphp @else @php $li2 = false @endphp  @endif
+                    <a class="nav-link active" href="#navbar-examples1" data-toggle="collapse" role="button" aria-expanded="@if($li2 == true){{"true"}}@else{{"false"}}@endif" aria-controls="navbar-examples">
+                        <i class="fas fa-cog" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">Purchase</span>
+                    </a>
+
+                    <div class="collapse @if($li2 == true) show @endif" id="navbar-examples1">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link @if($seg1 == 'purchase') bg-primary text-white @endif" href="{{ route('purchase.index') }}">
+                                    Purchase Receipt Entry
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if($seg1 == 'company') bg-primary text-white @endif" href="{{ route('company.index') }}">
+                                    Company Setup
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 
             </ul>
             <!-- Divider -->
