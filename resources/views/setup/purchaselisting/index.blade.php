@@ -36,16 +36,6 @@
 				<div class="row align-items-center">
 					<div class="col">
 						<h3 class="mb-0">Purchase Receipt List</h3>
-						<p v-html="selectedproduct"></p>
-						<multiselect v-model="selectedproduct" :options="products" hideSelected="true" allowEmpty="false" placeholder="Type to search" track-by="name" label="name">
-
-							<template slot="option" slot-scope="props">
-								<div class="option__desc"><span class="option__title" v-html="props.option.name"></span></div>
-							</template>
-
-							<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.name"></strong> </template>
-
-						</multiselect>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
@@ -105,7 +95,6 @@
 		</div>
 	</div>
 
-</div>
 
 <!-- Create modal -->
 
@@ -116,7 +105,7 @@
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">purchasereceipt Entry</h5>
+					<h5 class="modal-title">Purchasereceipt Entry</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -126,27 +115,59 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label for="distributor_id"> Distributor: * </label>
-								<div class="form-control p-0">
-									<select type="text" name="distributor_id" id="distributor_id"  class="p-0 form-control" required>
-									</select>
-								</div>
+								<multiselect  v-model="selectedpurchasereceipts" :options="purchasereceipts" hideSelected="true" allowEmpty="false" placeholder="Type To Search Distributor" track-by="name" label="name">
+									<template slot="option" slot-scope="props">
+										<div class="option__desc"><span class="option__title" v-html="props.option.distributor.name"></span></div>
+									</template>
+									<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.distributor.name"></strong> </template>
+								</multiselect>
 							</div>
 						</div>
-
-
-						<div class="col-lg-6 col-md-12 col-sm-12">
+						<div class="col-12">
+							<div class="table-responsive">
+								<!-- Projects table -->
+								<table class="table align-items-center table-flush">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Distributor Name</th>
+											<th scope="col" colspan="3" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts.distributor" v-html="selectedpurchasereceipts.distributor.name" class="text-xs"></p></th>
+										</tr>
+										<tr>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Receipt ID</th>
+											<th scope="col" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts" v-html="selectedpurchasereceipts.id" class="text-xs"></p></th>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Purchase Date</th>
+											<th scope="col" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts" v-html="selectedpurchasereceipts.date" class="text-xs"></p></th>
+										</tr>
+										<tr>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Purchase Price</th>
+											<th scope="col" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts" v-html="selectedpurchasereceipts.amount" class="text-xs"></p></th>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Discount</th>
+											<th scope="col" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts" v-html="selectedpurchasereceipts.discount" class="text-xs"></p></th>
+										</tr>
+										<tr>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Grand Total</th>
+											<th scope="col" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts" v-html="selectedpurchasereceipts.final_amount" class="text-xs"></p></th>
+											<th scope="col" style="border: 1px solid;" class="text-xs">Transport Cost</th>
+											<th scope="col" style="border: 1px solid;" ><p v-if="selectedpurchasereceipts" v-html="selectedpurchasereceipts.transport_cost" class="text-xs"></p></th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						
+						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="distributor_id"> Distributor: * </label>
-								<div class="form-control p-0">
-									<select type="text" name="distributor_id" id="distributor_id"  class="p-0" style="height:100%;width:90%;" required>
-										<option value="">Select a distributor</option>
-										
-									</select>
-									<i class="fas fa-plus-square fa-w-14 fa-2x"
-										style="font-size: 52px;transform: translate(5px, -4px);position: absolute;"
-										type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-										data-target=".distributor-modal"></i>
-								</div>
+							<label for="distributor_id"> Product: * </label>
+								<multiselect v-model="selectedproduct" :options="products" hideSelected="true" allowEmpty="false" placeholder="Type to search" track-by="name" label="name" style="width: 90%">
+									<template slot="option" slot-scope="props">
+										<div class="option__desc"><span class="option__title" v-html="props.option.name"></span></div>
+									</template>
+									<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.name"></strong> </template>
+								</multiselect>
+								<i class="fas fa-plus-square fa-w-14 fa-2x float-left"
+									style="font-size: 52px;transform: translate(5px, -4px);position: absolute;"
+									type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+									data-target=".distributor-modal"></i>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
@@ -276,32 +297,32 @@
 
 
 
-<!-- Edit modal -->
+	<!-- Edit modal -->
 
-<div class="modal fade bd-update-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<form method="POST" action="" id="update" enctype="multipart/form-data">
-			{{ csrf_field() }}
-			@method('PUT')
-			<div class="modal-content">
-				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">purchasereceipt Edit</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+	<div class="modal fade bd-update-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<form method="POST" action="" id="update" enctype="multipart/form-data">
+				{{ csrf_field() }}
+				@method('PUT')
+				<div class="modal-content">
+					<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
+						<h5 class="modal-title">purchasereceipt Edit</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					
+					
+					<div class="modal-footer" style="border-top: 2px solid rgb(232 227 227);">
+						<input type="submit" class="btn btn-success" value="Update">
+						<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
+					</div>
 				</div>
-				
-				
-				<div class="modal-footer" style="border-top: 2px solid rgb(232 227 227);">
-					<input type="submit" class="btn btn-success" value="Update">
-					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>
 </div>
-
 
 
 
@@ -317,9 +338,11 @@
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 
-<script>
+<script type="application/javascript">
+
 setTimeout(function(){
-		Vue.component('multiselect', window.VueMultiselect.default)
+
+	Vue.component('multiselect', window.VueMultiselect.default)
 	const vm = new Vue({
 	  el:"#vuejscom",
 	  data() {
@@ -327,6 +350,7 @@ setTimeout(function(){
 				products:[],
 				purchasereceipts:[],
 				selectedproduct:[],
+				selectedpurchasereceipts:[],
 				isLoading:[],
 				array:[],
 				question:[],
@@ -379,7 +403,6 @@ setTimeout(function(){
 				self.purchasereceipts=re
 			  }
 			});
-			console.log(self.purchasereceipts);
 		}
 	})
 }, 1000)
