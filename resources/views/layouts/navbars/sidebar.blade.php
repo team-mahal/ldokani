@@ -86,7 +86,7 @@
                 </li>
                 @php $seg1 = Request::segment(1) @endphp
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples" data-value="navbar-examples">
                         <i class="fas fa-cog" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">Setup</span>
                     </a>
@@ -152,7 +152,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
+                    <a class="nav-link active" href="#navbar-examples1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples" data-value="navbar-examples1">
                         <i class="fas fa-cog" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">Purchase</span>
                     </a>
