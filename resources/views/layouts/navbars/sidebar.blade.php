@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
         <!-- Toggler -->
@@ -85,13 +86,12 @@
                 </li>
                 @php $seg1 = Request::segment(1) @endphp
                 <li class="nav-item">
-                    @if( $seg1 == 'category' || $seg1 == 'company' || $seg1 == 'distributor' || $seg1 == 'product' || $seg1 == 'customer' || $seg1 == 'employee' || $seg1 == 'unit' || $seg1 == 'bankentry' || $seg1 == 'expense' || $seg1 == 'income' || $seg1 == 'card') @php $li1 = true @endphp @else @php $li1 = false @endphp  @endif
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="@if($li1 == true){{"true"}}@else{{"false"}}@endif" aria-controls="navbar-examples">
+                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
                         <i class="fas fa-cog" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">Setup</span>
                     </a>
 
-                    <div class="collapse @if($li1 == true) show @endif" id="navbar-examples">
+                    <div class="collapse show-test" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('category.index') }}">
@@ -104,47 +104,47 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'distributor') bg-primary text-white @endif" href="{{ route('distributor.index') }}">
+                                <a class="nav-link" href="{{ route('distributor.index') }}">
                                     Distributor Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'product') bg-primary text-white @endif" href="{{ route('product.index') }}">
+                                <a class="nav-link" href="{{ route('product.index') }}">
                                     Product Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'customer') bg-primary text-white @endif" href="{{ route('customer.index') }}">
+                                <a class="nav-link" href="{{ route('customer.index') }}">
                                     Customer Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'employee') bg-primary text-white @endif" href="{{ route('employee.index') }}">
+                                <a class="nav-link" href="{{ route('employee.index') }}">
                                     Employee Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'unit') bg-primary text-white @endif" href="{{ route('unit.index') }}">
+                                <a class="nav-link" href="{{ route('unit.index') }}">
                                     Unit Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'bankentry') bg-primary text-white @endif" href="{{ route('bankentry.index') }}">
+                                <a class="nav-link" href="{{ route('bankentry.index') }}">
                                     Bank Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'expense') bg-primary text-white @endif" href="{{ route('expense.index') }}">
+                                <a class="nav-link" href="{{ route('expense.index') }}">
                                     Expense Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'income') bg-primary text-white @endif" href="{{ route('income.index') }}">
+                                <a class="nav-link" href="{{ route('income.index') }}">
                                     Income Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'card') bg-primary text-white @endif" href="{{ route('card.index') }}">
+                                <a class="nav-link" href="{{ route('card.index') }}">
                                     Card Entry
                                 </a>
                             </li>
@@ -152,21 +152,20 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    @if( $seg1 == 'purchasereceipt' || $seg1 == 'purchaselisting') @php $li2 = true @endphp @else @php $li2 = false @endphp  @endif
-                    <a class="nav-link active" href="#navbar-examples1" data-toggle="collapse" role="button" aria-expanded="@if($li2 == true){{"true"}}@else{{"false"}}@endif" aria-controls="navbar-examples">
+                    <a class="nav-link active" href="#navbar-examples1" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-examples">
                         <i class="fas fa-cog" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">Purchase</span>
                     </a>
 
-                    <div class="collapse @if($li2 == true) show @endif" id="navbar-examples1">
+                    <div class="collapse show-test" id="navbar-examples1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'purchasereceipt') bg-primary text-white @endif" href="{{ route('purchasereceipt.index') }}">
+                                <a class="nav-link" href="{{ route('purchasereceipt.index') }}">
                                     Purchase Receipt Entry
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'purchaselisting') bg-primary text-white @endif" href="{{ route('purchaselisting.index') }}">
+                                <a class="nav-link" href="{{ route('purchaselisting.index') }}">
                                     Purchase Listing
                                 </a>
                             </li>

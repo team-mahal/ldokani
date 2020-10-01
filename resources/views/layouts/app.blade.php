@@ -58,19 +58,27 @@
         @stack('js')
 
         <script>
-        // Toggle Search Form
-            $(document).ready(function() {
-               
-                var currnet  =  "{{ url()->current()  }}";
-                var matching = $('.nav-link').filter(function(){
-                   return $(this).attr('href') == currnet
+            // Toggle Search Form
+                $(document).ready(function() {
+                    
+                    var currnet  =  "{{ url()->current()  }}";
+                    var matching = $('.nav-link').filter(function(){
+                        return $(this).attr('href') == currnet
+                    });
+                    matching.addClass('bg-primary text-white');
+            
+            
+                    var isactive = $( ".show-test" ).find('.nav-link').filter(function(){
+                        return $(this).attr('href') == currnet
+                    });
+            
+                    isactive.closest(".show-test").addClass('show');
+                    var show = isactive.closest(".show-test").attr('id');
+                    console.log($("[href=navbar-examples1]"));
+                    console.log(document.querySelectorAll('[class=test]'));
+                    $("[href=navbar-examples1]").attr('aria-expanded', 'true');
+            
                 });
-                matching.addClass('bg-primary text-white')
-
-            });
-        </script>
-
-        
-        
+            </script>
     </body>
 </html>
