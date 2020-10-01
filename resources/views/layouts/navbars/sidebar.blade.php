@@ -94,12 +94,12 @@
                     <div class="collapse @if($li1 == true) show @endif" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'category') bg-primary text-white @endif" href="{{ route('category.index') }}">
+                                <a class="nav-link" href="{{ route('category.index') }}">
                                     Category Setup
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if($seg1 == 'company') bg-primary text-white @endif" href="{{ route('company.index') }}">
+                                <a class="nav-link" href="{{ route('company.index') }}">
                                     Company Setup
                                 </a>
                             </li>

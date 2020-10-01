@@ -56,6 +56,20 @@
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         
         @stack('js')
+
+        <script>
+        // Toggle Search Form
+            $(document).ready(function() {
+               
+                var currnet  =  "{{ url()->current()  }}";
+                var matching = $('.nav-link').filter(function(){
+                   return $(this).attr('href') == currnet
+                });
+                matching.addClass('bg-primary text-white')
+
+            });
+        </script>
+
         
         
     </body>
