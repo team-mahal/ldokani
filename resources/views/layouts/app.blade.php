@@ -57,6 +57,10 @@
         
         @stack('js')
 
+        {{-- <div href="navbar-examples1">
+             
+        </div> --}}
+
         <script>
             // Toggle Search Form
                 $(document).ready(function() {
@@ -74,9 +78,7 @@
             
                     isactive.closest(".show-test").addClass('show');
                     var show = isactive.closest(".show-test").attr('id');
-                    console.log($("[href=navbar-examples1]"));
-                    console.log(document.querySelectorAll('[class=test]'));
-                    $("[href=navbar-examples1]").attr('aria-expanded', 'true');
+                    $("[data-value="+show+"]").attr('aria-expanded', 'true');
             
                 });
             </script>

@@ -675,6 +675,30 @@ $('#store_distributor_with_purchasereceipt_page').on('submit', function(event){
     });
   });
 
+
+  
+var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+$("#date").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+    defaultDate: utc
+});
+$("#date1").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+    defaultDate: utc
+});
+$("#date2").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+    defaultDate: utc
+});
+$("#date3").flatpickr({
+    wrap: true,
+    dateFormat: "Y-m-d",
+    defaultDate: utc
+});
+
   function showDiv(value){
     if(value==2){
         $('#cheque').show();
@@ -724,27 +748,6 @@ function showDivEdit(value){
     });
     }, 500);
 
-var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-$("#date").flatpickr({
-    wrap: true,
-    dateFormat: "Y-m-d",
-    defaultDate: utc
-});
-$("#date1").flatpickr({
-    wrap: true,
-    dateFormat: "Y-m-d",
-    defaultDate: utc
-});
-$("#date2").flatpickr({
-    wrap: true,
-    dateFormat: "Y-m-d",
-    defaultDate: utc
-});
-$("#date3").flatpickr({
-    wrap: true,
-    dateFormat: "Y-m-d",
-    defaultDate: utc
-});
 
 
 function totalAmount()
