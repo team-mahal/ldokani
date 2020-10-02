@@ -35,7 +35,7 @@
 			<div class="card-header border-0">
 				<div class="row align-items-center">
 					<div class="col">
-						<h3 class="mb-0">Purchase Receipt List</h3>
+						<h3 class="mb-0">Purchase Listing</h3>
 					</div>
 					<div class="col text-right">
 						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
@@ -101,11 +101,11 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<form method="POST" action="/purchasereceipt" id="store">
+		<form method="POST" action="/purchaselisting" id="store">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-					<h5 class="modal-title">Purchasereceipt Entry</h5>
+					<h5 class="modal-title">Purchase Listing</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -121,6 +121,7 @@
 									</template>
 									<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.distributor.name"></strong> </template>
 								</multiselect>
+								<input type="text" name="distributor_id"  :value="selectedpurchasereceipts.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(20px, -30px);">
 							</div>
 						</div>
 						<div class="col-12">
@@ -158,65 +159,58 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
 							<label for="distributor_id"> Product: * </label>
-								<multiselect v-model="selectedproduct" :options="products" hideSelected="true" allowEmpty="false" placeholder="Type to search" track-by="name" label="name" style="width: 90%">
-									<template slot="option" slot-scope="props">
-										<div class="option__desc"><span class="option__title" v-html="props.option.name"></span></div>
-									</template>
-									<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.name"></strong> </template>
-								</multiselect>
-								<i class="fas fa-plus-square fa-w-14 fa-2x float-left"
-									style="font-size: 52px;transform: translate(5px, -4px);position: absolute;"
-									type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-									data-target=".distributor-modal"></i>
+								<div class="d-flex">
+									<multiselect v-model="selectedproduct" :options="products" hideSelected="true" allowEmpty="false" placeholder="Type to search" track-by="name" label="name" style="width: 95%">
+										<template slot="option" slot-scope="props">
+											<div class="option__desc"><span class="option__title" v-html="props.option.name"></span></div>
+										</template>
+										<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.name"></strong> </template>
+									</multiselect>
+									<input type="text" name="product_id"  :value="selectedproduct.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(-300px, 10px);">
+									<div></div>
+									<i class="fas fa-plus-square fa-w-14 fa-2x"
+										style="font-size: 45px;transform: translate(1px, -2px);"
+										type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+										data-target=".distributor-modal"></i>
+								</div>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label> purchasereceipt Amount * </label>
-								<input type="number" name="amount" id="amount"  oninput="totalAmount()" class="form-control" placeholder="Ex: 1000" required>
+								<label> Quantity </label>
+								<input type="number" name="quantity" class="form-control" placeholder="Ex: 1000" required>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label>Transport Cost </label>
-								<input type="number" name="transport_cost" id="transport_cost" oninput="totalAmount()" class="form-control" placeholder="Ex: 100">
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>Discount </label>
-								<input type="number" name="discount" id="discount" oninput="totalAmount()" class="form-control" placeholder="Ex: 5">
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>Final Amount </label>
-								<input disabled type="number" name="final_amount" id="final_amount" class="form-control" placeholder="Ex: 999" required>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<div class="form-group">
-								<label>Date </label>
-								<div class="flatpickr form__group field" id="date2"  class="form__field">
-									<input data-input type="text" value="{{ old('date') }}" name="date1" class="form-control" placeholder="Date ">
+								<label>Expire Date: </label>
+								<div class="flatpickr form__group field" id="date1"  class="form__field">
+									<input data-input type="text" value="{{ old('date') }}" name="expire_date" class="form-control" placeholder="Expire Date " required>
 							  	</div>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="mode">Payment Mode *</label>
-								<select type="text" name="mode" id="mode" class="form-control" onchange="showDiv(this.value)">
-									<option value="">Select Mode</option> 
-									<option value="1">Cash</option> 
-									<option value="2">Cheque</option> 
-									<option value="3">Card</option>
-								</select>
+								<label>Total Buy Price </label>
+								<input type="number" name="total_buy_price" class="form-control" placeholder="">
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label>Payment Amount </label>
-								<input type="number" name="payment_amount" class="form-control" placeholder="Ex: 1000" required>
+								<label>MRP: </label>
+								<input type="number" name="mrp" class="form-control" placeholder="Ex: 15" required>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label>Unit Buy Price </label>
+								<input type="number" name="unit_buy_price" class="form-control" placeholder="Ex: 10" required>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label>Sale Price </label>
+								<input type="number" name="sale_price" class="form-control" placeholder="Ex: 12" required>
 							</div>
 						</div>
 					</div>
@@ -351,12 +345,25 @@ setTimeout(function(){
 				purchasereceipts:[],
 				selectedproduct:[],
 				selectedpurchasereceipts:[],
-				isLoading:[],
-				array:[],
-				question:[],
+
 			};
 		},
 		methods: {
+			store: function(event) {
+				event.preventDefault();
+				console.log(this);
+				// $.ajax({
+				// 	url     : '/get-product',
+				// 	cash    : false,
+				// 	method  :"POST",
+				// 	data: new FormData(this),
+				// 	dataType: 'json',
+				// 	success : function(re)
+				// 	{	
+				// 		self.products=re
+				// 	}
+				// })
+			},
 			stringtonumber(number){
 			  return number ? parseInt(number) : 0;
 			},
