@@ -53,7 +53,12 @@ class ProductController extends Controller
         $product->image        = $new_name;
         $product->save();
 
-        return response()->json("success");
+        if($request->ispurchaselisting == 1){
+            return response()->json($product->id);
+        }else{
+            return response()->json("success");
+        }
+
     }
     
     public function edit($id)

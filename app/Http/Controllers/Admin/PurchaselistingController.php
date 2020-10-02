@@ -36,6 +36,7 @@ class PurchaselistingController extends Controller
         $purchaselisting->unit_buy_price       = $request->unit_buy_price;
         $purchaselisting->sale_price           = $request->sale_price;
         $purchaselisting->save();
+        
         return response()->json("success");
     }
     

@@ -73,8 +73,8 @@
 							<td style="">{{$data->total_buy_price}}</td>
 							<td style="display: -webkit-inline-box;">
 								<button type="button" class="btn btn-sm btn-success" data-toggle="modal"
-									data-target=".bd-update-lg" onclick="find_purchasereceipt({{$data->id}})">Edit</button>
-								<form action="{{ route('purchasereceipt.destroy',$data->id) }}" method="POST">
+									data-target=".bd-update-lg" onclick="find_purchaselisting({{$data->id}})">Edit</button>
+								<form action="{{ route('purchaselisting.destroy',$data->id) }}" method="POST">
 									@csrf
 									@method('DELETE')
 									<input style="margin-left: 10px;" type="submit" class="btn btn-danger btn-sm"
@@ -156,7 +156,7 @@
 						
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
-							<label for="distributor_id"> Product: * </label>
+							<label for="product_id"> Product: * </label>
 								<div class="d-flex">
 									<multiselect v-model="selectedproduct" :options="products" hideSelected="true" allowEmpty="false" placeholder="Type to search" track-by="name" label="name" style="width: 95%">
 										<template slot="option" slot-scope="props">
@@ -164,12 +164,12 @@
 										</template>
 										<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.name"></strong> </template>
 									</multiselect>
-									<input type="text" name="product_id"  :value="selectedproduct.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(-300px, 10px);">
+									<input type="text" name="product_id" id="product_id"  :value="selectedproduct.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(-300px, 10px);">
 									<div></div>
 									<i class="fas fa-plus-square fa-w-14 fa-2x"
 										style="font-size: 45px;transform: translate(1px, -2px);"
 										type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-										data-target=".distributor-modal"></i>
+										data-target=".product-modal"></i>
 								</div>
 							</div>
 						</div>
@@ -227,10 +227,10 @@
 
 
 <!-- Create provider modal -->
-<div class="modal fade distributor-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div class="modal fade product-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
 	aria-hidden="true"  style="z-index: 99999999999999">
 	<div class="modal-dialog modal-lg">
-		<form id="store_distributor_with_purchasereceipt_page" action="/distributor">
+		<form id="store_product_with_purchaselisting_page" action="/product">
 			{{ csrf_field() }}
 			<div class="modal-content">
 				<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
@@ -349,7 +349,7 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" value="1" name="ispurchasereceipt">
+				<input type="hidden" value="1" name="ispurchaselisting">
 				<div class="modal-footer"  style="border-top: 2px solid rgb(232 227 227);">
 					<input type="submit" class="btn btn-primary" value="Create">
 					<button type="reset" class="btn btn-danger"><i class="fas fa-trash-restore"></i> Reset</button>
@@ -370,7 +370,7 @@
 				@method('PUT')
 				<div class="modal-content">
 					<div class="modal-header" style="border-bottom: 2px solid rgb(232 227 227);">
-						<h5 class="modal-title">purchasereceipt Edit</h5>
+						<h5 class="modal-title">Purchase Edit</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -386,7 +386,7 @@
 										</template>
 										<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.distributor.name"></strong> </template>
 									</multiselect>
-									<input type="text" name="purchasereceipt_id"  :value="selectedpurchasereceipts.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(20px, -30px);">
+									<input type="text" name="purchasereceipt_id" id="purchasereceipt_id"  :value="selectedpurchasereceipts.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(20px, -30px);">
 								</div>
 							</div>
 							<div class="col-12">
@@ -423,7 +423,7 @@
 							
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="form-group">
-								<label for="distributor_id"> Product: * </label>
+								<label for="distributor_id"> Product </label>
 									<div class="d-flex">
 										<multiselect v-model="selectedproduct" :options="products" hideSelected="true" allowEmpty="false" placeholder="Type to search" track-by="name" label="name" style="width: 95%">
 											<template slot="option" slot-scope="props">
@@ -431,12 +431,12 @@
 											</template>
 											<template slot="singleLabel" slot-scope="{ option }"><strong v-html="option.name"></strong> </template>
 										</multiselect>
-										<input type="text" name="product_id"  :value="selectedproduct.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(-300px, 10px);">
+										<input type="text" name="product_id" id="product_id_edit" :value="selectedproduct.id" required style="opacity: 0;height: 0px;width: 0px;transform: translate(-300px, 10px);">
 										<div></div>
 										<i class="fas fa-plus-square fa-w-14 fa-2x"
 											style="font-size: 45px;transform: translate(1px, -2px);"
 											type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-											data-target=".distributor-modal"></i>
+											data-target=".product-modal"></i>
 									</div>
 								</div>
 							</div>
@@ -445,39 +445,39 @@
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
 									<label> Quantity </label>
-									<input type="number" name="quantity" class="form-control" placeholder="Ex: 1000" required>
+									<input type="number" name="quantity" id="quantity" class="form-control" placeholder="Ex: 1000" required>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
 									<label>Expire Date: </label>
-									<div class="flatpickr form__group field" id="date1"  class="form__field">
-										<input data-input type="text" value="{{ old('date') }}" name="expire_date" class="form-control" placeholder="Expire Date " required>
+									<div class="flatpickr form__group field" id="date"  class="form__field">
+										<input data-input type="text" value="{{ old('date') }}" name="expire_date" id="" class="form-control" placeholder="Expire Date " required>
 									  </div>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
 									<label>Total Buy Price </label>
-									<input type="number" name="total_buy_price" class="form-control" placeholder="">
+									<input type="number" name="total_buy_price" id="total_buy_price" class="form-control" placeholder="">
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
 									<label>MRP: </label>
-									<input type="number" name="mrp" class="form-control" placeholder="Ex: 15" required>
+									<input type="number" name="mrp" id="mrp" class="form-control" placeholder="Ex: 15" required>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
 									<label>Unit Buy Price </label>
-									<input type="number" name="unit_buy_price" class="form-control" placeholder="Ex: 10" required>
+									<input type="number" name="unit_buy_price" id="unit_buy_price" class="form-control" placeholder="Ex: 10" required>
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12">
 								<div class="form-group">
 									<label>Sale Price </label>
-									<input type="number" name="sale_price" class="form-control" placeholder="Ex: 12" required>
+									<input type="number" name="sale_price" id="sale_price" class="form-control" placeholder="Ex: 12" required>
 								</div>
 							</div>
 						</div>

@@ -331,6 +331,30 @@ function find_purchasereceipt(id)
 	});
 }
 
+
+//******    Find purchaselisting edit data    ******** */ / 
+function find_purchaselisting(id)
+{
+    $.ajax({
+        type:"GET",
+        url :"/purchaselisting/"+id+"/edit",
+        data : {},
+        success : function(response) {
+            $('#purchasereceipt_id').val(response.result.purchasereceipt_id);
+            $('#product_id_edit').val(response.result.product_id);
+            $('#quantity').val(response.result.quantity);
+            $('#sale_price').val(response.result.sale_price);
+            $('#total_buy_price').val(response.result.total_buy_price);
+            $('#mrp').val(response.result.mrp);
+            $('#unit_buy_price').val(response.result.unit_buy_price);
+            $('#expire_date').val(response.result.expire_date);
+            $('#edit_id').val(response.result.id);
+            $("#update").attr("action", "/purchaselisting/" + response.result.id);
+        }
+    });
+}
+
+
 //******    Company store    ******** */ / 
 $('#store_company_with_product_page').on('submit', function(event){
     event.preventDefault();
@@ -661,6 +685,42 @@ $('#store_distributor_with_purchasereceipt_page').on('submit', function(event){
 				option1.setAttribute("selected", "selected");
                 y.add(option1, y[1]);
                 $('.distributor-modal').modal('hide');
+                $(this).trigger("reset");
+            }else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'An error across',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        }
+    });
+  });
+
+
+      //******    Product store    ******** */ / 
+$('#store_product_with_purchaselisting_page').on('submit', function(event){
+    event.preventDefault();
+    var name = $(this).find('input[name="name"]').val();
+    $.ajax({
+        url : $(this).attr('action'),
+        method:"POST",
+        data: $(this).serialize(),
+        dataType:'JSON',
+        success : function(response) {
+            if(jQuery.isNumeric(response)){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Create successfully!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                $('#product_id').val(response);
+                $('#product_id_edit').val(response);
+                $('.product-modal').modal('hide');
                 $(this).trigger("reset");
             }else{
                 Swal.fire({
