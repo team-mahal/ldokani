@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 use App\Purchaselisting;
 use App\Product;
 use App\Purchasereceipt;
+use App\Category;
+use App\Company;
+use App\Unit;
 
 class PurchaselistingController extends Controller
 {
     public function index()
     {
         $datas = Purchaselisting::with('purchasereceipt')->with('product')->orderBy('id', 'DESC')->paginate(10);
-        return view('setup.purchaselisting.index', ['datas' => $datas]);
+        $category = Category::orderBy('id', 'DESC')->select('name','id')->get();
+        $company = Company::orderBy('id', 'DESC')->select('name','id')->get();
+        $unit = Unit::orderBy('id', 'DESC')->select('name','id')->get();
+        return view('setup.purchaselisting.index', ['datas' => $datas, 'category' => $category, 'company' => $company, 'unit' => $unit]);
     }
 
 
